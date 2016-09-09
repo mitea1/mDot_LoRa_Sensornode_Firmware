@@ -5,7 +5,7 @@
 int main() {
 
 	Application application;
-	application.init(APPLICATION_MODE_9);
+	application.init(APPLICATION_MODE_1);
 
     while (true) {
     	sleep();

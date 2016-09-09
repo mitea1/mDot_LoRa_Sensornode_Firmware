@@ -26,36 +26,13 @@ TaskPressure::~TaskPressure() {
 	// TODO Auto-generated destructor stub
 }
 
-osStatus TaskPressure::start(){
-	setState(RUNNING);
-	this->thread = new rtos::Thread(callBack,this);
-}
-
-osStatus TaskPressure::stop(){
-	thread->terminate();
-	setState(SLEEPING);
-	delete this->thread;
-}
-
-void TaskPressure::callBack(void const* data){
-	// WOODHAMMER METHOD of Casting!
-	const TaskPressure* constInstance = static_cast<const TaskPressure* >(data);
-	TaskPressure* instance = const_cast<TaskPressure*>(constInstance);
-
-	instance->measurePressure();
-}
-
-void TaskPressure::attachIdleHook(void (*fptr) (void)){
-	this->thread->attach_idle_hook(fptr);
-}
-
-void TaskPressure::measurePressure(){
+void TaskPressure::measure(){
 	BME280PressureMessage bme280PressureMessage;
 
 	while(true){
-		mutexI2C->lock(osWaitForever);
+		mutexInterface->lock(osWaitForever);
 		bme280PressureMessage.setPressure(bme280->getPressureFloat());
-		mutexI2C->unlock();
+		mutexInterface->unlock();
 
 		queue->put(&bme280PressureMessage,osWaitForever);
 		osDelay(PRESSURE_TASK_DELAY_MS);
@@ -66,28 +43,3 @@ void TaskPressure::measurePressure(){
 void TaskPressure::setQueue(Queue<BME280PressureMessage,PRESSURE_QUEUE_LENGHT>* queue){
 	this->queue = queue;
 }
-
-void TaskPressure::setMutex(Mutex* mutex){
-	this->mutexI2C = mutex;
-}
-
-void TaskPressure::setPriority(osPriority priority){
-	this->priority = priority;
-}
-
-void TaskPressure::setStackSize(uint32_t stacksize){
-	this->stack_size = stacksize;
-}
-
-void TaskPressure::setStackPointer(unsigned char* stackPointer){
-	this->stack_pointer = stackPointer;
-}
-
-void TaskPressure::setState(TASK_STATE state){
-	this->state = state;
-}
-
-TASK_STATE TaskPressure::getState(){
-	return state;
-}
-

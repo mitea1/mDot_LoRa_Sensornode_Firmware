@@ -26,36 +26,13 @@ TaskTemperature::~TaskTemperature() {
 	// TODO Auto-generated destructor stub
 }
 
-osStatus TaskTemperature::start(){
-	setState(RUNNING);
-	this->thread = new rtos::Thread(callBack,this);
-}
-
-osStatus TaskTemperature::stop(){
-	thread->terminate();
-	setState(SLEEPING);
-	delete this->thread;
-}
-
-void TaskTemperature::callBack(void const* data){
-	// WOODHAMMER METHOD of Casting!
-	const TaskTemperature* constInstance = static_cast<const TaskTemperature* >(data);
-	TaskTemperature* instance = const_cast<TaskTemperature*>(constInstance);
-
-	instance->measureTemperature();
-}
-
-void TaskTemperature::attachIdleHook(void (*fptr) (void)){
-	this->thread->attach_idle_hook(fptr);
-}
-
-void TaskTemperature::measureTemperature(){
+void TaskTemperature::measure(){
 	BME280TemperatureMessage bme280TemperatureMessage;
 
 	while(true){
-		mutexI2C->lock(osWaitForever);
+		mutexInterface->lock(osWaitForever);
 		bme280TemperatureMessage.setTemperature(bme280->getTemperatureFloat());
-		mutexI2C->unlock();
+		mutexInterface->unlock();
 
 		queue->put(&bme280TemperatureMessage,osWaitForever);
 		osDelay(TEMPERATURE_TASK_DELAY_MS);
@@ -67,28 +44,3 @@ void TaskTemperature::measureTemperature(){
 void TaskTemperature::setQueue(Queue<BME280TemperatureMessage,TEMPERATURE_QUEUE_LENGHT>* queue){
 	this->queue = queue;
 }
-
-void TaskTemperature::setMutex(Mutex* mutex){
-	this->mutexI2C = mutex;
-}
-
-void TaskTemperature::setPriority(osPriority priority){
-	this->priority = priority;
-}
-
-void TaskTemperature::setStackSize(uint32_t stacksize){
-	this->stack_size = stacksize;
-}
-
-void TaskTemperature::setStackPointer(unsigned char* stackPointer){
-	this->stack_pointer = stackPointer;
-}
-
-void TaskTemperature::setState(TASK_STATE state){
-	this->state = state;
-}
-
-TASK_STATE TaskTemperature::getState(){
-	return state;
-}
-

@@ -26,38 +26,16 @@ TaskAcceleration::~TaskAcceleration() {
 	// TODO Auto-generated destructor stub
 }
 
-osStatus TaskAcceleration::start(){
-	setState(RUNNING);
-	this->thread = new rtos::Thread(callBack,this);
-}
 
-osStatus TaskAcceleration::stop(){
-	thread->terminate();
-	setState(SLEEPING);
-	delete this->thread;
-}
-
-void TaskAcceleration::callBack(void const* data){
-	// WOODHAMMER METHOD of Casting!
-	const TaskAcceleration* constInstance = static_cast<const TaskAcceleration* >(data);
-	TaskAcceleration* instance = const_cast<TaskAcceleration*>(constInstance);
-
-	instance->measureAcceleration();
-}
-
-void TaskAcceleration::attachIdleHook(void (*fptr) (void)){
-	this->thread->attach_idle_hook(fptr);
-}
-
-void TaskAcceleration::measureAcceleration(){
+void TaskAcceleration::measure(){
 	MPU9250AccelerationMessage mpu9250AccelerationMessage;
 
 	while(true){
-		mutexI2C->lock(osWaitForever);
+		mutexInterface->lock(osWaitForever);
 		mpu9250AccelerationMessage.setXAcceleration(mpu9250->getXAxisAcceleration());
 		mpu9250AccelerationMessage.setYAcceleration(mpu9250->getYAxisAcceleration());
 		mpu9250AccelerationMessage.setZAcceleration(mpu9250->getZAxisAcceleration());
-		mutexI2C->unlock();
+		mutexInterface->unlock();
 
 		queue->put(&mpu9250AccelerationMessage,osWaitForever);
 		osDelay(ACCELERATION_TASK_DELAY_MS);
@@ -66,31 +44,14 @@ void TaskAcceleration::measureAcceleration(){
 
 }
 
+/**
+ * @brief Sets the message Queue of the Task where the measured values will be stored
+ * after the measurement
+ * @param queueAcceleration the queue where the MPU9250AccelerationMessage will be stored
+ */
 void TaskAcceleration::setQueue(Queue<MPU9250AccelerationMessage,ACCELERATION_QUEUE_LENGHT>* queue){
 	this->queue = queue;
+
 }
 
-void TaskAcceleration::setMutex(Mutex* mutex){
-	this->mutexI2C = mutex;
-}
-
-void TaskAcceleration::setPriority(osPriority priority){
-	this->priority = priority;
-}
-
-void TaskAcceleration::setStackSize(uint32_t stacksize){
-	this->stack_size = stacksize;
-}
-
-void TaskAcceleration::setStackPointer(unsigned char* stackPointer){
-	this->stack_pointer = stackPointer;
-}
-
-void TaskAcceleration::setState(TASK_STATE state){
-	this->state = state;
-}
-
-TASK_STATE TaskAcceleration::getState(){
-	return state;
-}
 

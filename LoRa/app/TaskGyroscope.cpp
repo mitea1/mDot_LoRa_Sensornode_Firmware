@@ -26,38 +26,15 @@ TaskGyroscope::~TaskGyroscope() {
 	// TODO Auto-generated destructor stub
 }
 
-osStatus TaskGyroscope::start(){
-	setState(RUNNING);
-	this->thread = new rtos::Thread(callBack,this);
-}
-
-osStatus TaskGyroscope::stop(){
-	thread->terminate();
-	setState(SLEEPING);
-	delete this->thread;
-}
-
-void TaskGyroscope::callBack(void const* data){
-	// WOODHAMMER METHOD of Casting!
-	const TaskGyroscope* constInstance = static_cast<const TaskGyroscope* >(data);
-	TaskGyroscope* instance = const_cast<TaskGyroscope*>(constInstance);
-
-	instance->measureGyroscope();
-}
-
-void TaskGyroscope::attachIdleHook(void (*fptr) (void)){
-	this->thread->attach_idle_hook(fptr);
-}
-
-void TaskGyroscope::measureGyroscope(){
+void TaskGyroscope::measure(){
 	MPU9250GyroscopeMessage mpu9250GyroscopeMessage;
 
 	while(true){
-		mutexI2C->lock(osWaitForever);
+		mutexInterface->lock(osWaitForever);
 		mpu9250GyroscopeMessage.setXGyro(mpu9250->getXAxisGyro());
 		mpu9250GyroscopeMessage.setYGyro(mpu9250->getYAxisGyro());
 		mpu9250GyroscopeMessage.setZGyro(mpu9250->getZAxisGyro());
-		mutexI2C->unlock();
+		mutexInterface->unlock();
 
 		queue->put(&mpu9250GyroscopeMessage,osWaitForever);
 		osDelay(GYROSCOPE_TASK_DELAY_MS);
@@ -69,28 +46,3 @@ void TaskGyroscope::measureGyroscope(){
 void TaskGyroscope::setQueue(Queue<MPU9250GyroscopeMessage,GYROSCOPE_QUEUE_LENGHT>* queue){
 	this->queue = queue;
 }
-
-void TaskGyroscope::setMutex(Mutex* mutex){
-	this->mutexI2C = mutex;
-}
-
-void TaskGyroscope::setPriority(osPriority priority){
-	this->priority = priority;
-}
-
-void TaskGyroscope::setStackSize(uint32_t stacksize){
-	this->stack_size = stacksize;
-}
-
-void TaskGyroscope::setStackPointer(unsigned char* stackPointer){
-	this->stack_pointer = stackPointer;
-}
-
-void TaskGyroscope::setState(TASK_STATE state){
-	this->state = state;
-}
-
-TASK_STATE TaskGyroscope::getState(){
-	return state;
-}
-

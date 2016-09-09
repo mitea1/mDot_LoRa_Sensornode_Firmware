@@ -26,36 +26,13 @@ TaskHumidity::~TaskHumidity() {
 	// TODO Auto-generated destructor stub
 }
 
-osStatus TaskHumidity::start(){
-	setState(RUNNING);
-	this->thread = new rtos::Thread(callBack,this);
-}
-
-osStatus TaskHumidity::stop(){
-	thread->terminate();
-	setState(SLEEPING);
-	delete this->thread;
-}
-
-void TaskHumidity::callBack(void const* data){
-	// WOODHAMMER METHOD of Casting!
-	const TaskHumidity* constInstance = static_cast<const TaskHumidity* >(data);
-	TaskHumidity* instance = const_cast<TaskHumidity*>(constInstance);
-
-	instance->measureHumidity();
-}
-
-void TaskHumidity::attachIdleHook(void (*fptr) (void)){
-	this->thread->attach_idle_hook(fptr);
-}
-
-void TaskHumidity::measureHumidity(){
+void TaskHumidity::measure(){
 	BME280HumidityMessage bme280HumidityMessage;
 
 	while(true){
-		mutexI2C->lock(osWaitForever);
+		mutexInterface->lock(osWaitForever);
 		bme280HumidityMessage.setHumidity(bme280->getHumidityFloat());
-		mutexI2C->unlock();
+		mutexInterface->unlock();
 
 		queue->put(&bme280HumidityMessage,osWaitForever);
 		osDelay(HUMIDITY_TASK_DELAY_MS);
@@ -67,28 +44,3 @@ void TaskHumidity::measureHumidity(){
 void TaskHumidity::setQueue(Queue<BME280HumidityMessage,HUMIDITY_QUEUE_LENGHT>* queue){
 	this->queue = queue;
 }
-
-void TaskHumidity::setMutex(Mutex* mutex){
-	this->mutexI2C = mutex;
-}
-
-void TaskHumidity::setPriority(osPriority priority){
-	this->priority = priority;
-}
-
-void TaskHumidity::setStackSize(uint32_t stacksize){
-	this->stack_size = stacksize;
-}
-
-void TaskHumidity::setStackPointer(unsigned char* stackPointer){
-	this->stack_pointer = stackPointer;
-}
-
-void TaskHumidity::setState(TASK_STATE state){
-	this->state = state;
-}
-
-TASK_STATE TaskHumidity::getState(){
-	return state;
-}
-
