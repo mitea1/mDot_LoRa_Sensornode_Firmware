@@ -1,11 +1,13 @@
 #include "Application.h"
 #include "ApplicationConfig.h"
 #include "UARTTunnel.h"
+#include "Queue.h"
+
 
 int main() {
 
 	Application application;
-	application.init(APPLICATION_MODE_1);
+	application.init(APPLICATION_MODE_9);
 
     while (true) {
     	sleep();

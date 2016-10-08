@@ -146,8 +146,14 @@ void TaskDatahandler::forwardSensorMessages(){
 
 	mutexLora->lock(osWaitForever);
 	lora->send(dataToSend);
-//	lora->recv(dataReceived);
+	lora->recv(dataReceived);
 	mutexLora->unlock();
+
+	if(!dataReceived.empty()){
+		commandMessage.setCommandString(dataReceived);
+		commandMessage.setCommandHex(dataReceived.at(0));
+		queueBundle.queueCommands->put(&commandMessage,osWaitForever);
+	}
 
 	dataToSend.clear();
 	dataReceived.clear();

@@ -1,12 +1,16 @@
-/*
- * CommandMessage.h
+/**
+ * @file CommandMessage.h
  *
- *  Created on: 08.06.2016
- *      Author: Adrian
+ * @author Adrian
+ * @date 08.06.2016
+ *
  */
-#include <string>
 #ifndef APP_COMMANDMESSAGE_H_
 #define APP_COMMANDMESSAGE_H_
+
+#include <string>
+#include <vector>
+#include <stdint.h>
 
 class CommandMessage {
 public:
@@ -14,10 +18,13 @@ public:
 	virtual ~CommandMessage();
 
 	std::string getCommandString();
+	void setCommandString(std::vector<uint8_t> commandMessage);
+	uint8_t getCommandHex();
+	void setCommandHex(uint8_t hexValue);
 private:
-	std::string command;
+	std::string* command;
+	uint8_t commandHex;
 
-	void setCommandString(std::string);
 };
 
 #endif /* APP_COMMANDMESSAGE_H_ */

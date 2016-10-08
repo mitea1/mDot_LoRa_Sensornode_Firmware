@@ -94,6 +94,8 @@ private:
 	osEvent gpsMeasureEvent;
 	osEvent loraMeasureEvent;
 
+	CommandMessage commandMessage;
+
 
 	/**
 	 * @brief A Callback function thats called by the mbed::Thread of this TaskClass
@@ -124,6 +126,10 @@ private:
 	 */
 	void forwardSensorMessages();
 
+	/**
+	 * @brief Forwards the received commands from LoRa to a CommandMessageQueue
+	 */
+	void forwardCommandMessages();
 
 	/**
 	 * @brief Sets the mutex for accessing and using the LoRa interface

@@ -17,10 +17,18 @@ CommandMessage::~CommandMessage() {
 }
 
 std::string CommandMessage::getCommandString(){
-	return command;
+	return *command;
 }
 
-void CommandMessage::setCommandString(std::string commandString){
-	this->command = commandString;
+void CommandMessage::setCommandString(std::vector<uint8_t> commandString){
+	this->command = new std::string(commandString.begin(),commandString.end());
+}
+
+uint8_t CommandMessage::getCommandHex(){
+	return commandHex;
+}
+
+void CommandMessage::setCommandHex(uint8_t hexValue){
+	this->commandHex = hexValue;
 }
 

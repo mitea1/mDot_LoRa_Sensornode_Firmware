@@ -168,22 +168,22 @@ private:
 	/**
 	 * @brief sets the Oversampling for Temperature Measurements
 	 */
-	void setOversamplingTemperature(uint8_t overSamplingTemperature);
+	void setOversamplingTemperature();
 
 	/**
 	 * @brief sets the Oversampling for Pressure Measurements
 	 */
-	void setOversamplingPressure(uint8_t overSamplingPressure);
+	void setOversamplingPressure();
 
 	/**
 	 * @brief sets the Oversampling for Humidity Measurements
 	 */
-	void setOversamplingHumidity(uint8_t overSamplingHumidity);
+	void setOversamplingHumidity();
 
 	/**
 	 * @brief sets the internal Sensor Mode inside the CTRL_MEAS Register
 	 */
-	void setMode(uint8_t desiredMode);
+	void setMode();
 
 
 	/**

@@ -158,7 +158,7 @@ class SI1143
 
         /**
          * @brief Get the actual proximity that has been measured
-         * @param repeat how many time the measurement has been taken to get an average
+         * @param repeat how many times the measurement has been taken to get an average
          * proximity value
          * @return
          */
@@ -166,7 +166,7 @@ class SI1143
 
         /**
          * @brief Get the actual ambient light that has been measured
-         * @param repeat how many time the measurement has been taken to get an average
+         * @param repeat how many times the measurement has been taken to get an average
          * ambient light value
          * @return
          */
@@ -174,7 +174,7 @@ class SI1143
 
         /**
 		 * @brief Get the actual infrared light that has been measured
-		 * @param repeat how many time the measurement has been taken to get an average
+		 * @param repeat how many times the measurement has been taken to get an average
 		 * infrared light value
 		 * @return
 		 */

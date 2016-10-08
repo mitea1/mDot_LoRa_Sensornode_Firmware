@@ -80,6 +80,9 @@ void Application::stopAllRunningSensorTasks(){
 	if(taskDataHandler->getState() == RUNNING){
 		taskDataHandler->stop();
 	}
+	if(taskCommandHandler->getState() == RUNNING){
+		taskCommandHandler->stop();
+	}
 
 	osDelay(100);
 }
@@ -117,7 +120,9 @@ void Application::initTasks(){
 	taskGps = new  TaskGPS(gpsSensor,mutexUART1,&queueGps,osPriorityNormal,DEFAULT_STACK_SIZE,NULL);
 	taskLoRaMeasurement = new TaskLoRaMeasurement(lora,mutexLoRa,&queueLoRaMeasurements,osPriorityNormal,DEFAULT_STACK_SIZE,NULL);
 	taskDataHandler = new  TaskDatahandler(lora,mutexLoRa,queueBundle,osPriorityNormal,DEFAULT_STACK_SIZE,NULL);
+	taskCommandHandler = new TaskCommandHandler(&queueCommands,osPriorityNormal,DEFAULT_STACK_SIZE,NULL);
 	taskDataHandler->setDebugSerial(debugSerial);
+	taskCommandHandler->setDebugSerial(debugSerial);
 }
 
 void Application::startRunnableSensorTasks(){
@@ -153,13 +158,14 @@ void Application::startRunnableSensorTasks(){
 	}
 
 	taskDataHandler->start();
+	taskCommandHandler->start();
 }
 
 void Application::configureSensors(){
 	max44009->init(config->getMAX44009_MODE());
 	bme280->init(config->getBME280_MODE());
 	mpu9250->init(config->getMPU9250_MODE());
-	si1143->init(config->getSI1143_MODE());
+//	si1143->init(config->getSI1143_MODE());
 	gpsSensor->init(config->getuBlox_MODE());
 }
 

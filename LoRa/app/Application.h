@@ -27,6 +27,7 @@
 #include "TaskGPS.h"
 #include "TaskLoRaMeasurement.h"
 #include "TaskDatahandler.h"
+#include "TaskCommandHandler.h"
 #include "main.h"
 
 #ifndef SENSORHANDLER_H_
@@ -61,6 +62,7 @@ private:
 	TaskGPS* taskGps;
 	TaskLoRaMeasurement* taskLoRaMeasurement;
 	TaskDatahandler* taskDataHandler;
+	TaskCommandHandler* taskCommandHandler;
 
 	rtos::Mutex* mutexI2C;
 	rtos::Mutex* mutexUART1;

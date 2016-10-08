@@ -20,10 +20,10 @@ void BME280::init(BME280_MODE desiredMode){
 
 	config->build(desiredMode);
 
-	setOversamplingHumidity(config->getOversamplingHumidity());
-	setOversamplingTemperature(config->getOversamplingTemperature());
-	setOversamplingPressure(config->getOversamplingPressure());
-	setMode(config->getMode());
+	setOversamplingHumidity();
+	setOversamplingTemperature();
+	setOversamplingPressure();
+	setMode();
 
 	getTrimValuesHumidity();
 	getTrimValuesPressure();
@@ -208,41 +208,45 @@ void BME280::setWeatherMonitoringMode(){
 
 }
 
-void BME280::setOversamplingTemperature(uint8_t oversamplingTemperature){
+void BME280::setOversamplingTemperature(){
 	uint8_t oldRegisterValue;
 	i2c->read_RT(BME280_SENSOR_ADDRESS,BME280_SENSOR_CTRL_MEAS,false,
 			&oldRegisterValue,1);
 
+	uint8_t oversamplingTemperature = config->getOversamplingTemperature();
 	uint8_t registerValue = (oversamplingTemperature << 5) | oldRegisterValue;
 	i2c->write_RT(BME280_SENSOR_ADDRESS,BME280_SENSOR_CTRL_MEAS,false,
 			&registerValue,1);
 }
 
-void BME280::setOversamplingPressure(uint8_t oversamplingPressure){
+void BME280::setOversamplingPressure(){
 	uint8_t oldRegisterValue;
 	i2c->read_RT(BME280_SENSOR_ADDRESS,BME280_SENSOR_CTRL_MEAS,false,
 			&oldRegisterValue,1);
 
+	uint8_t oversamplingPressure = config->getOversamplingPressure();
 	uint8_t registerValue = (oversamplingPressure << 2) | oldRegisterValue;
 	i2c->write_RT(BME280_SENSOR_ADDRESS,BME280_SENSOR_CTRL_MEAS,false,
 			&registerValue,1);
 }
 
-void BME280::setOversamplingHumidity(uint8_t oversamplingHumdity){
+void BME280::setOversamplingHumidity(){
 	uint8_t oldRegisterValue;
 	i2c->read_RT(BME280_SENSOR_ADDRESS,BME280_SENSOR_CTRL_HUM,false,
 			&oldRegisterValue,1);
 
-	uint8_t newRegisterValue = oversamplingHumdity|oldRegisterValue;
+	uint8_t oversamplingHumidity = config->getOversamplingHumidity();
+	uint8_t newRegisterValue = oversamplingHumidity|oldRegisterValue;
 	i2c->write_RT(BME280_SENSOR_ADDRESS,BME280_SENSOR_CTRL_HUM,false,
 			&newRegisterValue,1);
 }
 
-void BME280::setMode(uint8_t mode){
+void BME280::setMode(){
 	uint8_t oldRegisterValue;
 	i2c->read_RT(BME280_SENSOR_ADDRESS,BME280_SENSOR_CTRL_MEAS,false,
 			&oldRegisterValue,1);
 
+	uint8_t mode = config->getMode();
 	uint8_t registerValue = mode | oldRegisterValue;
 	i2c->write_RT(BME280_SENSOR_ADDRESS,BME280_SENSOR_CTRL_MEAS,false,
 				&registerValue,1);
