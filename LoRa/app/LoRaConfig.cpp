@@ -40,7 +40,7 @@ void LoRaConfig::build(LORA_MODE desiredMode){
 			setNetworkPublicity(true);
 			setActivity(true);
 			setFrequencySubBand(LORA_SUBBAND_1);
-			setSpreadingFactor(LORA_SPREADING_FACTOR_8);
+			setSpreadingFactor(LORA_SPREADING_FACTOR_7);
 			setTxPowerdBm(LORA_TX_POWER_16_DBM);
 			setAcknowledgeRetries(LORA_ACKNOWLEDGE_RETRIES_0);
 			setJOIN_MODE(OTA);
@@ -50,7 +50,7 @@ void LoRaConfig::build(LORA_MODE desiredMode){
 			setNetworkPublicity(true);
 			setActivity(true);
 			setFrequencySubBand(LORA_SUBBAND_0);
-			setSpreadingFactor(LORA_SPREADING_FACTOR_12);
+			setSpreadingFactor(LORA_SPREADING_FACTOR_7);
 			setTxPowerdBm(LORA_TX_POWER_16_DBM);
 			setAcknowledgeRetries(LORA_ACKNOWLEDGE_RETRIES_1);
 			setJOIN_MODE(ABP);
