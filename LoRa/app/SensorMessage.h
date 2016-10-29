@@ -9,6 +9,10 @@
 #ifndef SENSORMESSAGE_H_
 #define SENSORMESSAGE_H_
 
+#include <string>
+#include <vector>
+#include <stdint.h>
+
 /**
  * @class SensorMessage
  * @brief The Base Class of a Container that can hold acquired values from a Sensor. The container will be
@@ -26,6 +30,17 @@ public:
 	 */
 	virtual char* getLoRaMessageString();
 
+	/**
+	 * Gets a small LoRaMessage Type Formatted Binary version of the SensorMessage.
+	 * This Binaries can later be used for transportation via LoRa
+	 * @return
+	 */
+	virtual std::vector<uint8_t>* getLoRaMessageBinary();
+
+protected:
+	std::string loraMessage;
+	std::vector<uint8_t> loraMessageBinary;
+	std::vector<std::string> loraMessageId;
 private:
 //	virtual char* getLoRaMessageId();
 

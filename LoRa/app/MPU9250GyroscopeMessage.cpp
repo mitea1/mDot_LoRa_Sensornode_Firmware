@@ -19,27 +19,27 @@ MPU9250GyroscopeMessage::~MPU9250GyroscopeMessage() {
 }
 
 void MPU9250GyroscopeMessage::setXGyro(float xGyro){
-	this->xGyro = xGyro;
+	this->xGyro.floatValue = xGyro;
 }
 
 void MPU9250GyroscopeMessage::setYGyro(float yGyro){
-	this->yGyro = yGyro;
+	this->yGyro.floatValue = yGyro;
 }
 
 void MPU9250GyroscopeMessage::setZGyro(float zGyro){
-	this->zGyro = zGyro;
+	this->zGyro.floatValue = zGyro;
 }
 
 float MPU9250GyroscopeMessage::getXGyro(){
-	return xGyro;
+	return xGyro.floatValue;
 }
 
 float MPU9250GyroscopeMessage::getYGyro(){
-	return yGyro;
+	return yGyro.floatValue;
 }
 
 float MPU9250GyroscopeMessage::getZGyro(){
-	return zGyro;
+	return zGyro.floatValue;
 }
 
 char* MPU9250GyroscopeMessage::getLoRaMessageString(){
@@ -52,6 +52,30 @@ char* MPU9250GyroscopeMessage::getLoRaMessageString(){
 	sprintf(buffer,"%s:%.2f,",loraMessageId.at(2).c_str(),getZGyro());
 	loraMessage.append(buffer);
 	return (char*) loraMessage.c_str();
+}
+
+std::vector<uint8_t>* MPU9250GyroscopeMessage::getLoRaMessageBinary(){
+	loraMessageBinary.clear();
+
+	loraMessageBinary.insert(loraMessageBinary.begin(), (uint8_t) (MPU9250_X_GYROSCOPE_BINARY_MESSAGE_ID >> 8));
+	loraMessageBinary.insert(loraMessageBinary.begin(), (uint8_t) (MPU9250_X_GYROSCOPE_BINARY_MESSAGE_ID && 0xFF));
+	loraMessageBinary.insert(loraMessageBinary.end(),0x3A);
+	loraMessageBinary.insert(loraMessageBinary.end(),xGyro.uintValue,xGyro.uintValue + sizeof(xGyro.floatValue));
+	loraMessageBinary.insert(loraMessageBinary.end(),0x2C);
+
+	loraMessageBinary.insert(loraMessageBinary.begin(), (uint8_t) (MPU9250_Y_GYROSCOPE_BINARY_MESSAGE_ID >> 8));
+	loraMessageBinary.insert(loraMessageBinary.begin(), (uint8_t) (MPU9250_Y_GYROSCOPE_BINARY_MESSAGE_ID && 0xFF));
+	loraMessageBinary.insert(loraMessageBinary.end(),0x3A);
+	loraMessageBinary.insert(loraMessageBinary.end(),yGyro.uintValue,yGyro.uintValue + sizeof(yGyro.floatValue));
+	loraMessageBinary.insert(loraMessageBinary.end(),0x2C);
+
+	loraMessageBinary.insert(loraMessageBinary.begin(), (uint8_t) (MPU9250_Z_GYROSCOPE_BINARY_MESSAGE_ID >> 8));
+	loraMessageBinary.insert(loraMessageBinary.begin(), (uint8_t) (MPU9250_Z_GYROSCOPE_BINARY_MESSAGE_ID && 0xFF));
+	loraMessageBinary.insert(loraMessageBinary.end(),0x3A);
+	loraMessageBinary.insert(loraMessageBinary.end(),zGyro.uintValue,zGyro.uintValue + sizeof(zGyro.floatValue));
+	loraMessageBinary.insert(loraMessageBinary.end(),0x2C);
+
+	return &(loraMessageBinary);
 }
 
 

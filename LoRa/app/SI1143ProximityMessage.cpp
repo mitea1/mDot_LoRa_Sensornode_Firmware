@@ -17,11 +17,11 @@ SI1143ProximityMessage::~SI1143ProximityMessage() {
 }
 
 void SI1143ProximityMessage::setProximity(uint16_t proximity){
-	this->proximity = proximity;
+	this->proximity.uint16Value = proximity;
 }
 
 uint16_t SI1143ProximityMessage::getProximity(){
-	return proximity;
+	return proximity.uint16Value;
 }
 
 char* SI1143ProximityMessage::getLoRaMessageString(){
@@ -32,5 +32,15 @@ char* SI1143ProximityMessage::getLoRaMessageString(){
 	return (char*) loraMessage.c_str();
 }
 
+std::vector<uint8_t>* SI1143ProximityMessage::getLoRaMessageBinary(){
+	loraMessageBinary.clear();
 
+	loraMessageBinary.insert(loraMessageBinary.begin(),(uint8_t) (SI1143_PROXIMITY_BINARY_MESSAGE_ID >> 8));
+	loraMessageBinary.insert(loraMessageBinary.begin(),(uint8_t) (SI1143_PROXIMITY_BINARY_MESSAGE_ID && 0xFF));
+	loraMessageBinary.insert(loraMessageBinary.end(),0x3A);
+	loraMessageBinary.insert(loraMessageBinary.end(),proximity.uint8Value,proximity.uint8Value + sizeof(proximity.uint16Value));
+	loraMessageBinary.insert(loraMessageBinary.end(),0x2C);
+
+	return &(loraMessageBinary);
+}
 

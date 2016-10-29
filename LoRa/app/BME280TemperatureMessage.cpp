@@ -17,11 +17,11 @@ BME280TemperatureMessage::~BME280TemperatureMessage() {
 }
 
 void BME280TemperatureMessage::setTemperature(float temperature){
-	this->temperature = temperature;
+	this->temperature.floatValue = temperature;
 }
 
 float BME280TemperatureMessage::getTemperature(){
-	return temperature;
+	return temperature.floatValue;
 }
 
 char* BME280TemperatureMessage::getLoRaMessageString(){
@@ -32,3 +32,14 @@ char* BME280TemperatureMessage::getLoRaMessageString(){
 	return (char*) loraMessage.c_str();
 }
 
+std::vector<uint8_t>* BME280TemperatureMessage::getLoRaMessageBinary(){
+	loraMessageBinary.clear();
+
+	loraMessageBinary.insert(loraMessageBinary.begin(),(uint8_t) (BME280_TEMPERATURE_BINARY_MESSAGE_ID >> 8) );
+	loraMessageBinary.insert(loraMessageBinary.end(),(uint8_t) (BME280_TEMPERATURE_BINARY_MESSAGE_ID && 0xFF) );
+	loraMessageBinary.insert(loraMessageBinary.end(),0x3A);
+	loraMessageBinary.insert(loraMessageBinary.end(),temperature.uintValue,temperature.uintValue + sizeof(temperature.floatValue));
+	loraMessageBinary.insert(loraMessageBinary.end(),0x2C);
+
+	return &(loraMessageBinary);
+}

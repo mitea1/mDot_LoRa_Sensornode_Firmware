@@ -67,14 +67,22 @@ public:
 	 */
 	virtual char* getLoRaMessageString();
 
+	/**
+	 * Gets a small LoRaMessage Type Formated Binary representation from the MPU9250AccelerationMessage.
+	 * This binary representation can later be used for transportation via LoRa
+	 * @return
+	 */
+	virtual std::vector<uint8_t>* getLoRaMessageBinary();
+
 private:
 
 	std::string loraMessage;
 	std::vector<std::string> loraMessageId;
 
-	float xAcceleration;
-	float yAcceleration;
-	float zAcceleration;
+	union{
+		float floatValue;
+		uint8_t uintValue[sizeof(float)];
+	}xAcceleration,yAcceleration,zAcceleration;
 
 };
 

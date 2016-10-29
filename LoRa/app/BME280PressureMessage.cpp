@@ -17,11 +17,11 @@ BME280PressureMessage::~BME280PressureMessage() {
 }
 
 void BME280PressureMessage::setPressure(float pressure){
-	this->pressure = pressure;
+	this->pressure.floatValue = pressure;
 }
 
 float BME280PressureMessage::getPressure(){
-	return pressure;
+	return pressure.floatValue;
 }
 
 char* BME280PressureMessage::getLoRaMessageString(){
@@ -33,5 +33,15 @@ char* BME280PressureMessage::getLoRaMessageString(){
 	return (char*) loraMessage.c_str();
 }
 
+std::vector<uint8_t>* BME280PressureMessage::getLoRaMessageBinary(){
+	loraMessageBinary.clear();
 
+	loraMessageBinary.insert(loraMessageBinary.begin(),(uint8_t) (BME280_PRESSURE_BINARY_MESSAGE_ID >> 8) );
+	loraMessageBinary.insert(loraMessageBinary.end(),(uint8_t) (BME280_PRESSURE_BINARY_MESSAGE_ID && 0xFF) );
+	loraMessageBinary.insert(loraMessageBinary.end(),0x3A);
+	loraMessageBinary.insert(loraMessageBinary.end(),pressure.uintValue,pressure.uintValue + sizeof(pressure.floatValue));
+	loraMessageBinary.insert(loraMessageBinary.end(),0x2C);
+
+	return &(loraMessageBinary);
+}
 

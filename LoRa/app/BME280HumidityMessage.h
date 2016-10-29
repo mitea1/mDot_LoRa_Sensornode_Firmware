@@ -42,11 +42,22 @@ public:
 	 */
 	virtual char* getLoRaMessageString();
 
+	/**
+	 * Gets a small LoRaMessage Type Formated Binary representation from the BMEHumidityMessage.
+	 * This binary representation can later be used for transportation via LoRa
+	 * @return
+	 */
+	virtual std::vector<uint8_t>* getLoRaMessageBinary();
+
 private:
 	std::string loraMessage;
 	std::vector<std::string> loraMessageId;
 
-	float humidity;
+	union{
+		float floatValue;
+		uint8_t uintValue[sizeof(float)];
+	}humidity;
+
 };
 
 #endif /* BME280HUMIDITYMESSAGE_H_ */

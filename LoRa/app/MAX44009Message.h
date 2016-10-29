@@ -9,9 +9,8 @@
 #ifndef MAX44009MESSAGE_H_
 #define MAX44009MESSAGE_H_
 
-#include <string>
-#include <vector>
 #include <stdio.h>
+#include <stdint.h>
 #include "SensorMessage.h"
 
 /**
@@ -44,11 +43,19 @@ public:
 	 */
 	virtual char* getLoRaMessageString();
 
-private:
-	std::string loraMessage;
-	std::vector<std::string> loraMessageId;
+	/**
+	 * Gets a small LoRaMessage Type Formated Binary representation from the MAX44009Message.
+	 * This binary representation can later be used for transportation via LoRa
+	 * @return
+	 */
+	virtual std::vector<uint8_t>* getLoRaMessageBinary();
 
-	float lux;
+private:
+
+	union{
+		float floatValue;
+		uint8_t uintValue [sizeof(float)];
+	}lux;
 
 };
 

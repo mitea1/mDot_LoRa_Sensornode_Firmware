@@ -17,12 +17,12 @@ MAX44009Message::~MAX44009Message() {
 }
 
 void MAX44009Message::setLux(float lux){
-	this->lux = lux;
+	this->lux.floatValue = lux;
 
 }
 
 float MAX44009Message::getLux(){
-	return lux;
+	return lux.floatValue;
 }
 
 char* MAX44009Message::getLoRaMessageString(){
@@ -31,5 +31,16 @@ char* MAX44009Message::getLoRaMessageString(){
 	sprintf(buffer,"%s:%.2f,",loraMessageId.at(0).c_str(),getLux());
 	loraMessage.append(buffer);
 	return (char*) loraMessage.c_str();
+}
+
+std::vector<uint8_t>* MAX44009Message::getLoRaMessageBinary(){
+	loraMessageBinary.clear();
+
+	loraMessageBinary.insert(loraMessageBinary.begin(),MAX44009_BINARY_MESSAGE_ID);
+	loraMessageBinary.insert(loraMessageBinary.end(),0x3A);
+	loraMessageBinary.insert(loraMessageBinary.end(),lux.uintValue,lux.uintValue + sizeof(lux.floatValue));
+	loraMessageBinary.insert(loraMessageBinary.end(),0x2C);
+
+	return &(loraMessageBinary);
 }
 

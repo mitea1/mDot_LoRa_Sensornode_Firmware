@@ -80,6 +80,13 @@ public:
 	 */
 	virtual char* getLoRaMessageString();
 
+	/**
+	 * Gets a small LoRaMessage Type Formated Binary representation from the LoRaMeasurementMessage.
+	 * This binary representation can later be used for transportation via LoRa
+	 * @return
+	 */
+	virtual std::vector<uint8_t>* getLoRaMessageBinary();
+
 private:
 	std::string loraMessage;
 	std::vector<std::string> loraMessageId;

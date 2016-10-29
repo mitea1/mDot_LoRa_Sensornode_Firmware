@@ -10,11 +10,12 @@
 #include <vector>
 #include <stdint.h>
 #include "SensorMessage.h"
+#include "main.h"
 
 #ifndef APP_SI1143MESSAGE_H_
 #define APP_SI1143MESSAGE_H_
 
-#define SI1143_PROXIMITY_MESSAGE_ID		"P4"
+
 
 /**
  * @class SI1143ProximityMessage
@@ -40,17 +41,28 @@ public:
 
 
 	/**
-	 * Gets a small LoRaMessage Type Formated String from the MAX44009Message.
+	 * Gets a small LoRaMessage Type Formated String from the SI1143ProximityMessage.
 	 * This String can later be used for transportation via LoRa
 	 * @return
 	 */
 	virtual char* getLoRaMessageString();
 
+	/**
+	 * Gets a small LoRaMessage Type Formated Binary representation from the SI1143ProximityMessage.
+	 * This binary representation can later be used for transportation via LoRa
+	 * @return
+	 */
+	virtual std::vector<uint8_t>* getLoRaMessageBinary();
+
 private:
 	std::string loraMessage;
 	std::vector<std::string> loraMessageId;
 
-	uint16_t proximity;
+	union{
+		uint16_t uint16Value;
+		uint8_t uint8Value[sizeof(uint16_t)];
+	}proximity;
+
 };
 
 #endif /* APP_SI1143MESSAGE_H_ */

@@ -20,4 +20,8 @@ char* SensorMessage::getLoRaMessageString(){
 
 }
 
+std::vector<uint8_t>* SensorMessage::getLoRaMessageBinary(){
+
+}
+
 

@@ -66,3 +66,9 @@ char* LoRaMeasurementMessage::getLoRaMessageString(){
 	return (char*) loraMessage.c_str();
 }
 
+std::vector<uint8_t>* LoRaMeasurementMessage::getLoRaMessageBinary(){
+	loraMessageBinary.clear();
+
+	return &(loraMessageBinary);
+}
+

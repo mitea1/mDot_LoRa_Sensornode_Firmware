@@ -42,11 +42,22 @@ public:
 	 */
 	virtual char* getLoRaMessageString();
 
+	/**
+	 * Gets a small LoRaMessage Type Formated Binary representation from the BMEPressureMessage.
+	 * This binary representation can later be used for transportation via LoRa
+	 * @return
+	 */
+	virtual std::vector<uint8_t>* getLoRaMessageBinary();
+
 private:
 	std::string loraMessage;
 	std::vector<std::string> loraMessageId;
 
-	float pressure;
+	union{
+		float floatValue;
+		uint8_t uintValue[sizeof(float)];
+	}pressure;
+
 };
 
 #endif /* BME280PRESSUREMESSAGE_H_ */

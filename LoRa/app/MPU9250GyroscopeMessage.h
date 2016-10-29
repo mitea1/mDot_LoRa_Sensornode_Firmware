@@ -62,13 +62,21 @@ public:
 	 */
 	virtual char* getLoRaMessageString();
 
+	/**
+	 * Gets a small LoRaMessage Type Formated Binary representation from the MPU9250GyroscopeMessage.
+	 * This binary representation can later be used for transportation via LoRa
+	 * @return
+	 */
+	virtual std::vector<uint8_t>* getLoRaMessageBinary();
+
 private:
 	std::string loraMessage;
 	std::vector<std::string> loraMessageId;
 
-	float xGyro;
-	float yGyro;
-	float zGyro;
+	union{
+		float floatValue;
+		uint8_t uintValue[sizeof(float)];
+	}xGyro,yGyro,zGyro;
 
 };
 

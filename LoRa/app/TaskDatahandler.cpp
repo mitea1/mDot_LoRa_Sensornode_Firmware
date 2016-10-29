@@ -80,24 +80,36 @@ void TaskDatahandler::forwardSensorMessages(){
 		MAX44009Message* luxMessage = (MAX44009Message*) lightMeasureEvent.value.p;
 		debugSerial->printf("%s\n",luxMessage->getLoRaMessageString());
 		loraMessage.append(luxMessage->getLoRaMessageString());
+
+		dataToSend.insert(dataToSend.end(),
+				luxMessage->getLoRaMessageBinary()->begin(),luxMessage->getLoRaMessageBinary()->end());
 	}
 
 	if (temperatureMeasureEvent.status == osEventMessage) {
 		BME280TemperatureMessage* temperatureMessage = (BME280TemperatureMessage*) temperatureMeasureEvent.value.p;
 		debugSerial->printf("%s\n",temperatureMessage->getLoRaMessageString());
 		loraMessage.append(temperatureMessage->getLoRaMessageString());
+
+		dataToSend.insert(dataToSend.end(),
+						temperatureMessage->getLoRaMessageBinary()->begin(),temperatureMessage->getLoRaMessageBinary()->end());
 	}
 
 	if (pressureMeasureEvent.status == osEventMessage) {
 		BME280PressureMessage* pressureMessage = (BME280PressureMessage*) pressureMeasureEvent.value.p;
 		debugSerial->printf("%s\n",pressureMessage->getLoRaMessageString());
 		loraMessage.append(pressureMessage->getLoRaMessageString());
+
+		dataToSend.insert(dataToSend.end(),
+						pressureMessage->getLoRaMessageBinary()->begin(),pressureMessage->getLoRaMessageBinary()->end());
 	}
 	
 	if (humidityMeasureEvent.status == osEventMessage) {
 		BME280HumidityMessage* humidityMessage = (BME280HumidityMessage*) humidityMeasureEvent.value.p;
 		debugSerial->printf("%s\n",humidityMessage->getLoRaMessageString());
 		loraMessage.append(humidityMessage->getLoRaMessageString());
+
+		dataToSend.insert(dataToSend.end(),
+						humidityMessage->getLoRaMessageBinary()->begin(),humidityMessage->getLoRaMessageBinary()->end());
 	}
 	
 	if (accelerationMeasureEvent.status == osEventMessage) {
@@ -138,10 +150,11 @@ void TaskDatahandler::forwardSensorMessages(){
 
 	debugSerial->printf("\n");
 
-	// format data for sending to the gateway
-	for (std::string::iterator it = loraMessage.begin(); it != loraMessage.end(); it++){
-		dataToSend.push_back((uint8_t) *it);
-	}
+//	// format data for sending to the gateway
+//	for (std::string::iterator it = loraMessage.begin(); it != loraMessage.end(); it++){
+//		dataToSend.push_back((uint8_t) *it);
+//	}
+
 	loraMessage.clear();
 
 	mutexLora->lock(osWaitForever);
