@@ -61,6 +61,12 @@
 #define INA219_REG_CURRENT                     (0x04)
 #define INA219_REG_CALIBRATION                 (0x05)
 
+enum INA219_MODE{
+	INA219_MODE_0_OFF = 0,//!< LORA_MODE_0
+	INA219_MODE_1 = 1,//!< LORA_MODE_1
+	INA219_MODE_2 = 2,//!< LORA_MODE_2
+};
+
 class INA219 {
 public:
 	INA219(I2C_RT* i2c);

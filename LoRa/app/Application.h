@@ -14,6 +14,7 @@
 #include "MPU9250.h"
 #include "SI1143.h"
 #include "uBlox.h"
+#include "INA219.h"
 #include "mDot.h"
 #include "LoRa.h"
 #include "TaskLight.h"
@@ -61,6 +62,7 @@ private:
 	TaskProximity* taskProximity;
 	TaskGPS* taskGps;
 	TaskLoRaMeasurement* taskLoRaMeasurement;
+	TaskLoRaMeasurement* taskPowerMeasurement;
 	TaskDatahandler* taskDataHandler;
 	TaskCommandHandler* taskCommandHandler;
 
@@ -71,6 +73,7 @@ private:
 	rtos::Mutex mutexMPU9250;
 	rtos::Mutex mutexSi4103;
 	rtos::Mutex mutexUBlox;
+	rtos::Mutex mutexINA219;
 	rtos::Mutex* mutexLoRa;
 
 	Queue<MAX44009Message,LIGHT_QUEUE_LENGHT> queueLight;
@@ -83,6 +86,7 @@ private:
 	Queue<SI1143ProximityMessage,PROXIMITY_QUEUE_LENGHT> queueProximity;
 	Queue<UBloxGPSMessage,GPS_QUEUE_LENGHT> queueGps;
 	Queue<LoRaMeasurementMessage,LORA_MEASUREMENT_QUEUE_LENGHT> queueLoRaMeasurements;
+	Queue<PowerMeasurementMessage,POWER_MEASUREMENT_QUEUE_LENGHT> queuePowerMeasurements;
 	Queue<CommandMessage,COMMAND_QUEUE_LENGHT> queueCommands;
 
 	QueueBundle queueBundle;
@@ -92,6 +96,7 @@ private:
 	BME280*	bme280;
 	MPU9250* mpu9250;
 	SI1143* si1143;
+	INA219* ina219;
 
 	ApplicationConfig* config;
 

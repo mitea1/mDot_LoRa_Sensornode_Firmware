@@ -153,6 +153,12 @@ public:
 	TASK_STATE getStateTaskLoRaMeasurement();
 
 	/**
+	 * @brief Get Information about the TASK_STATE of the TaskPowerMeasurement in the actual ApplicationConfig
+	 * @return the actual TASK_STATE (RUNNING,SLEEPING) of TaskPowerMeasurement
+	 */
+	TASK_STATE getStateTaskPowerMeasurement();
+
+	/**
 	 * @brief Get Information about the LORA_STATE of the LoRa Module in the actual ApplicationConfig
 	 * @return the actual LORA_STATE (ON,OFF) of TaskLoRaMeasurement
 	 */
@@ -176,6 +182,7 @@ private:
 	TASK_STATE stateTaskProximity;
 	TASK_STATE stateTaskGPS;
 	TASK_STATE stateTaskLoraMeasurement;
+	TASK_STATE stateTaskPowerMeasurement;
 
 	LORA_STATE stateLoRa;
 
@@ -275,6 +282,13 @@ private:
 	 * @param the desired State
 	 */
 	void setStateTaskLoRaMeasurement(TASK_STATE desiredState);
+
+	/**
+	 * @brief Sets the TASK_STATE (RUNNING,SLEEPING) of TaskPowerMeasurement for the actual ApplicationConfig
+	 * @param the desired State
+	 */
+	void setStateTaskPowerMeasurement(TASK_STATE desiredState);
+
 	/**
 	 * @brief Sets the LORA_STATE (ON,OFF) of LoRa Device for the actual ApplicationConfig
 	 * @param the desired State

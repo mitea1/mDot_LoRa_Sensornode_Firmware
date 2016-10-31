@@ -77,6 +77,9 @@ void Application::stopAllRunningSensorTasks(){
 	if(taskLoRaMeasurement->getState() == RUNNING){
 		taskLoRaMeasurement->stop();
 	}
+	if(taskPowerMeasurement->getState() == RUNNING){
+		taskPowerMeasurement->stop();
+	}
 	if(taskDataHandler->getState() == RUNNING){
 		taskDataHandler->stop();
 	}
@@ -106,6 +109,7 @@ void Application::initSensors(){
 	bme280 = new BME280(i2c_rt);
 	mpu9250 = new MPU9250(i2c_rt);
 	si1143 = new SI1143(i2c_rt);
+	ina219 = new INA219(i2c_rt);
 }
 
 void Application::initTasks(){
@@ -119,6 +123,7 @@ void Application::initTasks(){
 	taskProximity = new  TaskProximity(si1143,mutexI2C,&queueProximity,osPriorityNormal,DEFAULT_STACK_SIZE,NULL);
 	taskGps = new  TaskGPS(gpsSensor,mutexUART1,&queueGps,osPriorityNormal,DEFAULT_STACK_SIZE,NULL);
 	taskLoRaMeasurement = new TaskLoRaMeasurement(lora,mutexLoRa,&queueLoRaMeasurements,osPriorityNormal,DEFAULT_STACK_SIZE,NULL);
+	taskPowerMeasurement = new TaskPowerMeasurement(ina219,mutexI2C,&queuePowerMeasurements,osPriorityNormal,DEFAULT_STACK_SIZE,NULL);
 	taskDataHandler = new  TaskDatahandler(lora,mutexLoRa,queueBundle,osPriorityNormal,DEFAULT_STACK_SIZE,NULL);
 	taskCommandHandler = new TaskCommandHandler(&queueCommands,osPriorityNormal,DEFAULT_STACK_SIZE,NULL);
 	taskDataHandler->setDebugSerial(debugSerial);
@@ -155,6 +160,9 @@ void Application::startRunnableSensorTasks(){
 	}
 	if(config->getStateTaskLoRaMeasurement() == RUNNING){
 		taskLoRaMeasurement->start();
+	}
+	if(config->getStateTaskPowerMeasurement() == RUNNING){
+		taskPowerMeasurement->start();
 	}
 
 	taskDataHandler->start();
@@ -195,4 +203,5 @@ void Application::initQueueBundle(){
 	this->queueBundle.queueProximity = &queueProximity;
 	this->queueBundle.queueTemperature = &queueTemperature;
 	this->queueBundle.queueTesla = &queueTesla;
+	this->queueBundle.queuePowerMeasurments = &queuePowerMeasurements;
 }

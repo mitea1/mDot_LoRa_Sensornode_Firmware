@@ -28,6 +28,7 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskProximity(RUNNING);
 		setStateTaskGPS(RUNNING);
 		setStateTaskLoRaMeasurement(SLEEPING);
+		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_1);
@@ -46,6 +47,7 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(RUNNING);
 		setStateTaskLoRaMeasurement(SLEEPING);
+		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_1);
@@ -64,6 +66,7 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
+		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_1);
@@ -82,6 +85,7 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(RUNNING);
 		setStateTaskLoRaMeasurement(SLEEPING);
+		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_1);
@@ -100,6 +104,7 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
+		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_1);
@@ -118,6 +123,7 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(RUNNING);
 		setStateTaskLoRaMeasurement(SLEEPING);
+		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_1);
@@ -136,6 +142,7 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
+		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_1);
@@ -154,6 +161,7 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(RUNNING);
 		setStateTaskLoRaMeasurement(SLEEPING);
+		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_1);
@@ -172,6 +180,7 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
+		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_1);
@@ -190,6 +199,7 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskProximity(RUNNING);
 		setStateTaskGPS(RUNNING);
 		setStateTaskLoRaMeasurement(SLEEPING);
+		setStateTaskPowerMeasurement(RUNNING);
 		setMAX44009_MODE(MAX44009_MODE_1);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_1);
@@ -208,6 +218,7 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskProximity(RUNNING);
 		setStateTaskGPS(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
+		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_1);
@@ -226,6 +237,7 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
+		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_1);
@@ -244,6 +256,7 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskProximity(RUNNING);
 		setStateTaskGPS(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
+		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_4);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_4);
@@ -262,6 +275,7 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
+		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_1);
@@ -280,6 +294,7 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
+		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_1);
@@ -298,6 +313,7 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
+		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_1);
@@ -316,6 +332,7 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskProximity(RUNNING);
 		setStateTaskGPS(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
+		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_1);
@@ -334,6 +351,7 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(RUNNING);
 		setStateTaskLoRaMeasurement(SLEEPING);
+		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_1);
@@ -352,6 +370,7 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(RUNNING);
 		setStateTaskLoRaMeasurement(RUNNING);
+		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_1);
@@ -370,6 +389,7 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
+		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_1);
@@ -388,6 +408,7 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
+		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_1);
@@ -406,6 +427,7 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskProximity(RUNNING);
 		setStateTaskGPS(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
+		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_1);
@@ -425,6 +447,7 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskProximity(RUNNING);
 		setStateTaskGPS(RUNNING);
 		setStateTaskLoRaMeasurement(SLEEPING);
+		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_1);
@@ -499,6 +522,10 @@ TASK_STATE ApplicationConfig::getStateTaskLoRaMeasurement(){
 	return stateTaskLoraMeasurement;
 }
 
+TASK_STATE ApplicationConfig::getStateTaskPowerMeasurement(){
+	return stateTaskPowerMeasurement;
+}
+
 LORA_STATE ApplicationConfig::getStateLoRa(){
 	//TODO implement usage of this function
 	return stateLoRa;
@@ -566,6 +593,10 @@ void ApplicationConfig::setStateTaskGPS(TASK_STATE stateTaskGPS){
 
 void ApplicationConfig::setStateTaskLoRaMeasurement(TASK_STATE stateTaskLoRaMeasurement){
 	this->stateTaskLoraMeasurement = stateTaskLoRaMeasurement;
+}
+
+void ApplicationConfig::setStateTaskPowerMeasurement(TASK_STATE stateTaskPowerMeasurement){
+	this->stateTaskPowerMeasurement = stateTaskPowerMeasurement;
 }
 
 void ApplicationConfig::setStateLoRa(LORA_STATE stateLoRa){
