@@ -6,6 +6,7 @@
  */
 
 #include "TaskDatahandler.h"
+#include "LoRaMessageBuilder.h"
 
 TaskDatahandler::TaskDatahandler(LoRa* lora,Mutex* mutexLora, QueueBundle queueBundle,
 		osPriority priority,uint32_t stackSize, unsigned char* stackPointer){
@@ -65,7 +66,10 @@ void TaskDatahandler::getMessagesFromSensorQueues(){
 	teslaMeasureEvent = queueBundle.queueTesla->get(0);
 	proximityMeasureEvent = queueBundle.queueProximity->get(0);
 	gpsMeasureEvent = queueBundle.queueGps->get(0);
+	soilTemperatureMeasureEvent = queueBundle.queueSoilTemperature->get(0);
+	soilMoistureMeasureEvent = queueBundle.queueSoilMoisture->get(0);
 	loraMeasureEvent = queueBundle.queueLoRaMeasurments->get(0);
+	powerMeasureEvent = queueBundle.queuePowerMeasurments->get(0);
 }
 
 void TaskDatahandler::forwardSensorMessages(){
@@ -73,89 +77,83 @@ void TaskDatahandler::forwardSensorMessages(){
 	std::vector<uint8_t> dataToSend;
 	std::vector<uint8_t> dataReceived;
 
-	int32_t ret;
+	LoRaMessageBuilder* loraMessageBuilder = new LoRaMessageBuilder();
 
 	debugSerial->printf("\n");
-	if (lightMeasureEvent.status == osEventMessage) {
-		MAX44009Message* luxMessage = (MAX44009Message*) lightMeasureEvent.value.p;
-		debugSerial->printf("%s\n",luxMessage->getLoRaMessageString());
-		loraMessage.append(luxMessage->getLoRaMessageString());
 
-		dataToSend.insert(dataToSend.end(),
-				luxMessage->getLoRaMessageBinary()->begin(),luxMessage->getLoRaMessageBinary()->end());
+	if (lightMeasureEvent.status == osEventMessage) {
+		loraMessageBuilder->appendLoRaMessage(lightMeasureEvent.value.p);
+		debugSerial->printf("%s\n",loraMessageBuilder->getSensorMessage()->getLoRaMessageString());
 	}
 
 	if (temperatureMeasureEvent.status == osEventMessage) {
-		BME280TemperatureMessage* temperatureMessage = (BME280TemperatureMessage*) temperatureMeasureEvent.value.p;
-		debugSerial->printf("%s\n",temperatureMessage->getLoRaMessageString());
-		loraMessage.append(temperatureMessage->getLoRaMessageString());
-
-		dataToSend.insert(dataToSend.end(),
-						temperatureMessage->getLoRaMessageBinary()->begin(),temperatureMessage->getLoRaMessageBinary()->end());
+		loraMessageBuilder->appendLoRaMessage(temperatureMeasureEvent.value.p);
+		debugSerial->printf("%s\n",loraMessageBuilder->getSensorMessage()->getLoRaMessageString());
 	}
 
 	if (pressureMeasureEvent.status == osEventMessage) {
-		BME280PressureMessage* pressureMessage = (BME280PressureMessage*) pressureMeasureEvent.value.p;
-		debugSerial->printf("%s\n",pressureMessage->getLoRaMessageString());
-		loraMessage.append(pressureMessage->getLoRaMessageString());
-
-		dataToSend.insert(dataToSend.end(),
-						pressureMessage->getLoRaMessageBinary()->begin(),pressureMessage->getLoRaMessageBinary()->end());
+		loraMessageBuilder->appendLoRaMessage(pressureMeasureEvent.value.p);
+		debugSerial->printf("%s\n",loraMessageBuilder->getSensorMessage()->getLoRaMessageString());
 	}
 	
 	if (humidityMeasureEvent.status == osEventMessage) {
-		BME280HumidityMessage* humidityMessage = (BME280HumidityMessage*) humidityMeasureEvent.value.p;
-		debugSerial->printf("%s\n",humidityMessage->getLoRaMessageString());
-		loraMessage.append(humidityMessage->getLoRaMessageString());
-
-		dataToSend.insert(dataToSend.end(),
-						humidityMessage->getLoRaMessageBinary()->begin(),humidityMessage->getLoRaMessageBinary()->end());
+		loraMessageBuilder->appendLoRaMessage(humidityMeasureEvent.value.p);
+		debugSerial->printf("%s\n",loraMessageBuilder->getSensorMessage()->getLoRaMessageString());
 	}
 	
 	if (accelerationMeasureEvent.status == osEventMessage) {
-		MPU9250AccelerationMessage* accelerationMessage = (MPU9250AccelerationMessage*) accelerationMeasureEvent.value.p;
-		debugSerial->printf("%s\n",accelerationMessage->getLoRaMessageString());
-		loraMessage.append(accelerationMessage->getLoRaMessageString());
+		loraMessageBuilder->appendLoRaMessage(accelerationMeasureEvent.value.p);
+		debugSerial->printf("%s\n",loraMessageBuilder->getSensorMessage()->getLoRaMessageString());
 	}
 	
 	if (gyroscopeMeasureEvent.status == osEventMessage) {
-		MPU9250GyroscopeMessage* gyroscopeMessage = (MPU9250GyroscopeMessage*) gyroscopeMeasureEvent.value.p;
-		debugSerial->printf("%s\n",gyroscopeMessage->getLoRaMessageString());
-		loraMessage.append(gyroscopeMessage->getLoRaMessageString());
+		loraMessageBuilder->appendLoRaMessage(gyroscopeMeasureEvent.value.p);
+		debugSerial->printf("%s\n",loraMessageBuilder->getSensorMessage()->getLoRaMessageString());
 	}
 
 	if (teslaMeasureEvent.status == osEventMessage) {
-		MPU9250TeslaMessage* teslaMessage = (MPU9250TeslaMessage*) teslaMeasureEvent.value.p;
-		debugSerial->printf("%s\n",teslaMessage->getLoRaMessageString());
-		loraMessage.append(teslaMessage->getLoRaMessageString());
+		loraMessageBuilder->appendLoRaMessage(teslaMeasureEvent.value.p);
+		debugSerial->printf("%s\n",loraMessageBuilder->getSensorMessage()->getLoRaMessageString());
 	}
 
 	if(proximityMeasureEvent.status == osEventMessage){
-		SI1143ProximityMessage* si1143ProximityMessage = (SI1143ProximityMessage*) proximityMeasureEvent.value.p;
-		debugSerial->printf("%s\n",si1143ProximityMessage->getLoRaMessageString());
-		loraMessage.append(si1143ProximityMessage->getLoRaMessageString());
+		loraMessageBuilder->appendLoRaMessage(proximityMeasureEvent.value.p);
+		debugSerial->printf("%s\n",loraMessageBuilder->getSensorMessage()->getLoRaMessageString());
 	}
 
 	if(gpsMeasureEvent.status == osEventMessage){
-		UBloxGPSMessage* uBloxGpsMessage = (UBloxGPSMessage*) gpsMeasureEvent.value.p;
-		debugSerial->printf("%s\n",uBloxGpsMessage->getLoRaMessageString());
-		loraMessage.append(uBloxGpsMessage->getLoRaMessageString());
+		loraMessageBuilder->appendLoRaMessage(gpsMeasureEvent.value.p);
+		debugSerial->printf("%s\n",loraMessageBuilder->getSensorMessage()->getLoRaMessageString());
+	}
+
+	if(soilTemperatureMeasureEvent.status == osEventMessage){
+		loraMessageBuilder->appendLoRaMessage(soilTemperatureMeasureEvent.value.p);
+		debugSerial->printf("%s\n",loraMessageBuilder->getSensorMessage()->getLoRaMessageString());
+	}
+
+	if(soilMoistureMeasureEvent.status == osEventMessage){
+			loraMessageBuilder->appendLoRaMessage(soilMoistureMeasureEvent.value.p);
+			debugSerial->printf("%s\n",loraMessageBuilder->getSensorMessage()->getLoRaMessageString());
 	}
 
 	if(loraMeasureEvent.status == osEventMessage){
-		LoRaMeasurementMessage* loraMeasurementMessage = (LoRaMeasurementMessage*) loraMeasureEvent.value.p;
-		debugSerial->printf("%s\n",loraMeasurementMessage->getLoRaMessageString());
-		loraMessage.append(loraMeasurementMessage->getLoRaMessageString());
+		loraMessageBuilder->appendLoRaMessage(loraMeasureEvent.value.p);
+		debugSerial->printf("%s\n",loraMessageBuilder->getSensorMessage()->getLoRaMessageString());
+	}
+	
+	if(powerMeasureEvent.status == osEventMessage){
+		loraMessageBuilder->appendLoRaMessage(powerMeasureEvent.value.p);
+		debugSerial->printf("%s\n",loraMessageBuilder->getSensorMessage()->getLoRaMessageString());
 	}
 
 	debugSerial->printf("\n");
 
-//	// format data for sending to the gateway
-//	for (std::string::iterator it = loraMessage.begin(); it != loraMessage.end(); it++){
-//		dataToSend.push_back((uint8_t) *it);
-//	}
+	// format data for sending to the gateway
+	for (std::string::iterator it = loraMessageBuilder->getMessageAscii()->begin(); it != loraMessageBuilder->getMessageAscii()->end(); it++){
+		dataToSend.push_back((uint8_t) *it);
+	}
 
-	loraMessage.clear();
+	loraMessageBuilder->getMessageAscii()->clear();
 
 	mutexLora->lock(osWaitForever);
 	lora->send(dataToSend);
@@ -208,6 +206,7 @@ void TaskDatahandler::setState(TASK_STATE state){
 TASK_STATE TaskDatahandler::getState(){
 	return state;
 }
+
 
 
 

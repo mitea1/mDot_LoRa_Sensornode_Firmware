@@ -16,7 +16,10 @@ TaskLoRaMeasurement::TaskLoRaMeasurement(LoRa* lora,Mutex* mutexLoRa,
 
 TaskLoRaMeasurement::TaskLoRaMeasurement(LoRa* lora,Mutex* mutexLoRa,
 		rtos::Queue<LoRaMeasurementMessage,LORA_MEASUREMENT_QUEUE_LENGHT>* queue,
-		osPriority priority, uint32_t stackSize, unsigned char *stackPointer):TaskLoRaMeasurement(lora,mutexLoRa,queue) {
+		osPriority priority, uint32_t stackSize, unsigned char *stackPointer){
+	this->lora = lora;
+	setMutex(mutexLoRa);
+	setQueue(queue);
 	setPriority(priority);
 	setStackSize(stackSize);
 	setStackPointer(stackPointer);

@@ -92,7 +92,10 @@ private:
 	osEvent teslaMeasureEvent;
 	osEvent proximityMeasureEvent;
 	osEvent gpsMeasureEvent;
+	osEvent soilTemperatureMeasureEvent;
+	osEvent soilMoistureMeasureEvent;
 	osEvent loraMeasureEvent;
+	osEvent powerMeasureEvent;
 
 	CommandMessage commandMessage;
 
@@ -167,6 +170,8 @@ private:
 	 * @param taskState either RUNNING or SLEEPING
 	 */
 	void setState(TASK_STATE taskState);
+
+	void appendLoRaMessage(void* message);
 
 };
 

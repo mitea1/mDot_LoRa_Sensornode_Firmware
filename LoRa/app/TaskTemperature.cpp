@@ -15,7 +15,10 @@ TaskTemperature::TaskTemperature(BME280* bme280,Mutex* mutexI2C, Queue<BME280Tem
 
 TaskTemperature::TaskTemperature(BME280* bme280,rtos::Mutex* mutexI2C,
 	rtos::Queue<BME280TemperatureMessage,TEMPERATURE_QUEUE_LENGHT>* queue,
-	osPriority priority, uint32_t stackSize, unsigned char *stackPointer):TaskTemperature(bme280,mutexI2C,queue) {
+	osPriority priority, uint32_t stackSize, unsigned char *stackPointer){
+	this->bme280 = bme280;
+	setMutex(mutexI2C);
+	setQueue(queue);
 	setPriority(priority);
 	setStackSize(stackSize);
 	setStackPointer(stackPointer);

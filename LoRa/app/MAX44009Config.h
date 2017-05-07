@@ -5,7 +5,7 @@
  * @date 25.05.2016
  *
  */
-#include <stdint-gcc.h>
+#include <stdint.h>
 #ifndef APP_MAX44009CONFIG_H_
 #define APP_MAX44009CONFIG_H_
 

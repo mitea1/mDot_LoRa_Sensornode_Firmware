@@ -9,6 +9,7 @@
 #include "uBloxConfig.h"
 #include "MAX44009Config.h"
 #include "SI1143Config.h"
+#include "INA219Config.h"
 #include "LoRaConfig.h"
 #include "main.h"
 #ifndef APPLICATIONCONFIG_H_
@@ -40,6 +41,7 @@ enum APPLICATION_MODE {
 	WEATHER_MEASUREMENT,     				//!< WEATHER_STATION
 	ORIENTATATION_MEASUREMENT,				//!< ORIENTATATION_SENSOR
 	DISTANCE_MEASUREMENT,     				//!< DISTANCE_SENSOR
+	SOIL_MEASUREMENT,     					//!< SOIL_MEASUREMENT
 };
 
 
@@ -90,6 +92,12 @@ public:
 	 * @return the actual LORA_MODE
 	 */
 	LORA_MODE getLORA_MODE();
+
+	/**
+	 * @brief Get Information about the INA219_MODE of the actual ApplicationConfig
+	 * @return the actual INA219_MODE
+	 */
+	INA219_MODE getINA219_MODE();
 
 
 	/**
@@ -147,6 +155,18 @@ public:
 	TASK_STATE getStateTaskGPS();
 
 	/**
+	 * @brief Get Information about the TASK_STATE of the TaskSoilTemperature in the actual ApplicationConfig
+	 * @return the actual TASK_STATE (RUNNING,SLEEPING) of TaskSoilTemperature
+	 */
+	TASK_STATE getStateTaskSoilTemperature();
+
+	/**
+	 * @brief Get Information about the TASK_STATE of the TaskSoilMoisture in the actual ApplicationConfig
+	 * @return the actual TASK_STATE (RUNNING,SLEEPING) of TaskSoilTemperature
+	 */
+	TASK_STATE getStateTaskSoilMoisture();
+
+	/**
 	 * @brief Get Information about the TASK_STATE of the TaskLoRaMeasurement in the actual ApplicationConfig
 	 * @return the actual TASK_STATE (RUNNING,SLEEPING) of TaskLoRaMeasurement
 	 */
@@ -170,6 +190,7 @@ private:
 	MPU9250_MODE mpu9250Mode;
 	SI1143_MODE si1143Mode;
 	uBLOX_MODE ubloxMode;
+	INA219_MODE ina219Mode;
 	LORA_MODE loraMode;
 
 	TASK_STATE stateTaskLight;
@@ -181,6 +202,8 @@ private:
 	TASK_STATE stateTaskTesla;
 	TASK_STATE stateTaskProximity;
 	TASK_STATE stateTaskGPS;
+	TASK_STATE stateTaskSoilTemperature;
+	TASK_STATE stateTaskSoilMoisture;
 	TASK_STATE stateTaskLoraMeasurement;
 	TASK_STATE stateTaskPowerMeasurement;
 
@@ -222,6 +245,11 @@ private:
 	 */
 	void setLORA_MODE(LORA_MODE desiredMode);
 
+	/**
+	 * @brief Sets the LORA_MODE for that the LORA device has to be initialized for the actual ApplicationConfig
+	 * @param the diseredMode
+	 */
+	void setINA219_MODE(INA219_MODE desiredMode);
 
 	/**
 	 * @brief Sets the TASK_STATE (RUNNING,SLEEPING) of TaskLight for the actual ApplicationConfig
@@ -276,6 +304,18 @@ private:
 	 * @param the desired State
 	 */
 	void setStateTaskGPS(TASK_STATE desiredState);
+
+	/**
+	 * @brief Sets the TASK_STATE of the TaskSoilTemperature for the actual ApplicationConfig
+	 * @param the desired State (RUNNING,SLEEPING)
+	 */
+	void setStateTaskSoilTemperature(TASK_STATE desiredState);
+
+	/**
+	 * @brief Sets the TASK_STATE of the TaskSoilTemperature for the actual ApplicationConfig
+	 * @param the desired State (RUNNING,SLEEPING)
+	 */
+	void setStateTaskSoilMoisture(TASK_STATE desiredState);
 
 	/**
 	 * @brief Sets the TASK_STATE (RUNNING,SLEEPING) of TaskLoRaMeasurement for the actual ApplicationConfig

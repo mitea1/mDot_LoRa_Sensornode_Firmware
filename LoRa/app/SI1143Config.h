@@ -5,7 +5,7 @@
  * @date 02.06.2016
  *
  */
-#include <stdint-gcc.h>
+#include <stdint.h>
 
 #ifndef APP_SI1143CONFIG_H_
 #define APP_SI1143CONFIG_H_

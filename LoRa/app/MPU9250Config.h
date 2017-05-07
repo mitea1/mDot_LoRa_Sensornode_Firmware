@@ -6,7 +6,7 @@
  *
  */
 
-#include <stdint-gcc.h>
+#include <stdint.h>
 
 #ifndef APP_MPU9250CONFIG_H_
 #define APP_MPU9250CONFIG_H_

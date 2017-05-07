@@ -58,7 +58,7 @@ int32_t LoRa::setFrequencySubBand(){
 	int32_t ret;
 	uint8_t subBand = config->getFrequencySubBand();
 
-	debugSerial->printf("setting frequency sub band\n");
+	debugSerial->printf("setting frequency sub band: %d \n",subBand);
 
 	if ((ret = dot->setFrequencySubBand(subBand)) != mDot::MDOT_OK) {
 		debugSerial->printf("failed to set frequency sub band %d:%s\n", ret, mDot::getReturnCodeString(ret).c_str());
@@ -71,7 +71,7 @@ int32_t LoRa::setNetworkName(){
 	int32_t ret;
 	std::string networkName = config->getNetworkName();
 
-	debugSerial->printf("setting network name\n");
+	debugSerial->printf("setting network name:%s\n",networkName.c_str());
 
 	if ((ret = dot->setNetworkName(networkName)) != mDot::MDOT_OK) {
 		debugSerial->printf("failed to set network name %d:%s\n", ret, mDot::getReturnCodeString(ret).c_str());
@@ -83,7 +83,7 @@ int32_t LoRa::setNetworkName(){
 int32_t LoRa::setNetworkPassphrase(){
 	int32_t ret;
 	std::string networkPassphrase = config->getNetworkPassphrase();
-	debugSerial->printf("setting network password\n");
+	debugSerial->printf("setting network password: %s\n",networkPassphrase.c_str());
 
 	if ((ret = dot->setNetworkPassphrase(networkPassphrase)) != mDot::MDOT_OK) {
 		debugSerial->printf("failed to set network password %d:%s\n", ret, mDot::getReturnCodeString(ret).c_str());

@@ -40,7 +40,7 @@ float MAX44009::getLux(){
 }
 
 float MAX44009::calculateLux(uint8_t mantissa, uint8_t exponent){
-	return pow(2,exponent) * mantissa * 0.72;
+	return pow(2.0,exponent) * mantissa * 0.72;
 }
 
 void MAX44009::setIntegrationTime(){

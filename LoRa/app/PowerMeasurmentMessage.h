@@ -41,7 +41,7 @@ private:
 
 	union{
 		float floatValue;
-		uint8_t uintValue[sizeof(float)]
+		uint8_t uintValue[sizeof(float)];
 	}shuntVoltage,busVoltage,current,power;
 
 };

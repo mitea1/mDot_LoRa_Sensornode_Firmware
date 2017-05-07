@@ -27,6 +27,8 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskTesla(RUNNING);
 		setStateTaskProximity(RUNNING);
 		setStateTaskGPS(RUNNING);
+		setStateTaskSoilTemperature(SLEEPING);
+		setStateTaskSoilMoisture(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
 		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
@@ -46,6 +48,8 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskTesla(SLEEPING);
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(RUNNING);
+		setStateTaskSoilTemperature(SLEEPING);
+		setStateTaskSoilMoisture(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
 		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
@@ -65,6 +69,8 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskTesla(SLEEPING);
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(SLEEPING);
+		setStateTaskSoilTemperature(SLEEPING);
+		setStateTaskSoilMoisture(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
 		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
@@ -84,6 +90,8 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskTesla(RUNNING);
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(RUNNING);
+		setStateTaskSoilTemperature(SLEEPING);
+		setStateTaskSoilMoisture(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
 		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
@@ -141,6 +149,8 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskTesla(SLEEPING);
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(SLEEPING);
+		setStateTaskSoilTemperature(SLEEPING);
+		setStateTaskSoilMoisture(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
 		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
@@ -160,6 +170,8 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskTesla(SLEEPING);
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(RUNNING);
+		setStateTaskSoilTemperature(SLEEPING);
+		setStateTaskSoilMoisture(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
 		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
@@ -179,6 +191,8 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskTesla(SLEEPING);
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(SLEEPING);
+		setStateTaskSoilTemperature(SLEEPING);
+		setStateTaskSoilMoisture(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
 		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
@@ -196,15 +210,17 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskAcceleration(SLEEPING);
 		setStateTaskGyroscope(SLEEPING);
 		setStateTaskTesla(SLEEPING);
-		setStateTaskProximity(RUNNING);
-		setStateTaskGPS(RUNNING);
+		setStateTaskProximity(SLEEPING);
+		setStateTaskGPS(SLEEPING);
+		setStateTaskSoilTemperature(SLEEPING);
+		setStateTaskSoilMoisture(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
 		setStateTaskPowerMeasurement(RUNNING);
 		setMAX44009_MODE(MAX44009_MODE_1);
 		setBME280_MODE(BME280_MODE_1);
 		setMPU9250_MODE(MPU9250_MODE_1);
 		setSI1143_MODE(SI1143_MODE_1);
-		setuBlox_MODE(uBLOX_MODE_1);
+		setuBlox_MODE(uBLOX_MODE_3);
 		setLORA_MODE(LORA_MODE_1);
 		break;
 	case APPLICATION_MODE_11:
@@ -217,6 +233,8 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskTesla(SLEEPING);
 		setStateTaskProximity(RUNNING);
 		setStateTaskGPS(SLEEPING);
+		setStateTaskSoilTemperature(SLEEPING);
+		setStateTaskSoilMoisture(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
 		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
@@ -236,6 +254,8 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskTesla(SLEEPING);
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(SLEEPING);
+		setStateTaskSoilTemperature(SLEEPING);
+		setStateTaskSoilMoisture(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
 		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
@@ -255,6 +275,8 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskTesla(SLEEPING);
 		setStateTaskProximity(RUNNING);
 		setStateTaskGPS(SLEEPING);
+		setStateTaskSoilTemperature(SLEEPING);
+		setStateTaskSoilMoisture(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
 		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_4);
@@ -274,6 +296,8 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskTesla(SLEEPING);
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(SLEEPING);
+		setStateTaskSoilTemperature(SLEEPING);
+		setStateTaskSoilMoisture(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
 		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
@@ -293,6 +317,8 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskTesla(SLEEPING);
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(SLEEPING);
+		setStateTaskSoilTemperature(SLEEPING);
+		setStateTaskSoilMoisture(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
 		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
@@ -312,6 +338,8 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskTesla(RUNNING);
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(SLEEPING);
+		setStateTaskSoilTemperature(SLEEPING);
+		setStateTaskSoilMoisture(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
 		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
@@ -331,6 +359,8 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskTesla(SLEEPING);
 		setStateTaskProximity(RUNNING);
 		setStateTaskGPS(SLEEPING);
+		setStateTaskSoilTemperature(SLEEPING);
+		setStateTaskSoilMoisture(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
 		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
@@ -350,6 +380,8 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskTesla(SLEEPING);
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(RUNNING);
+		setStateTaskSoilTemperature(SLEEPING);
+		setStateTaskSoilMoisture(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
 		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
@@ -369,6 +401,8 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskTesla(SLEEPING);
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(RUNNING);
+		setStateTaskSoilTemperature(SLEEPING);
+		setStateTaskSoilMoisture(SLEEPING);
 		setStateTaskLoRaMeasurement(RUNNING);
 		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
@@ -388,6 +422,8 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskTesla(SLEEPING);
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(SLEEPING);
+		setStateTaskSoilTemperature(SLEEPING);
+		setStateTaskSoilMoisture(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
 		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
@@ -407,6 +443,8 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskTesla(SLEEPING);
 		setStateTaskProximity(SLEEPING);
 		setStateTaskGPS(SLEEPING);
+		setStateTaskSoilTemperature(SLEEPING);
+		setStateTaskSoilMoisture(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
 		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
@@ -414,6 +452,27 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setMPU9250_MODE(MPU9250_MODE_1);
 		setSI1143_MODE(SI1143_MODE_1);
 		setuBlox_MODE(uBLOX_MODE_3);
+		setLORA_MODE(LORA_MODE_1);
+		break;
+	case SOIL_MEASUREMENT:
+		setStateTaskLight(SLEEPING);
+		setStateTaskTemperature(SLEEPING);
+		setStateTaskPressure(SLEEPING);
+		setStateTaskHumidity(SLEEPING);
+		setStateTaskAcceleration(SLEEPING);
+		setStateTaskGyroscope(SLEEPING);
+		setStateTaskTesla(SLEEPING);
+		setStateTaskProximity(SLEEPING);
+		setStateTaskGPS(SLEEPING);
+		setStateTaskSoilTemperature(RUNNING);
+		setStateTaskSoilMoisture(RUNNING);
+		setStateTaskLoRaMeasurement(SLEEPING);
+		setStateTaskPowerMeasurement(SLEEPING);
+		setMAX44009_MODE(MAX44009_MODE_1);
+		setBME280_MODE(BME280_MODE_1);
+		setMPU9250_MODE(MPU9250_MODE_1);
+		setSI1143_MODE(SI1143_MODE_1);
+		setuBlox_MODE(uBLOX_MODE_1);
 		setLORA_MODE(LORA_MODE_1);
 		break;
 	case DISTANCE_MEASUREMENT:
@@ -426,6 +485,8 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskTesla(SLEEPING);
 		setStateTaskProximity(RUNNING);
 		setStateTaskGPS(SLEEPING);
+		setStateTaskSoilTemperature(SLEEPING);
+		setStateTaskSoilMoisture(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
 		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
@@ -446,6 +507,8 @@ void ApplicationConfig::build(APPLICATION_MODE desiredMode) {
 		setStateTaskTesla(RUNNING);
 		setStateTaskProximity(RUNNING);
 		setStateTaskGPS(RUNNING);
+		setStateTaskSoilTemperature(SLEEPING);
+		setStateTaskSoilMoisture(SLEEPING);
 		setStateTaskLoRaMeasurement(SLEEPING);
 		setStateTaskPowerMeasurement(SLEEPING);
 		setMAX44009_MODE(MAX44009_MODE_1);
@@ -482,6 +545,10 @@ LORA_MODE ApplicationConfig::getLORA_MODE(){
 	return loraMode;
 }
 
+INA219_MODE ApplicationConfig::getINA219_MODE(){
+	return ina219Mode;
+}
+
 TASK_STATE ApplicationConfig::getStateTaskLight(){
 	return stateTaskLight;
 }
@@ -516,6 +583,14 @@ TASK_STATE ApplicationConfig::getStateTaskProximity(){
 
 TASK_STATE ApplicationConfig::getStateTaskGPS(){
 	return stateTaskGPS;
+}
+
+TASK_STATE ApplicationConfig::getStateTaskSoilTemperature(){
+	return stateTaskSoilTemperature;
+}
+
+TASK_STATE ApplicationConfig::getStateTaskSoilMoisture(){
+	return stateTaskSoilMoisture;
 }
 
 TASK_STATE ApplicationConfig::getStateTaskLoRaMeasurement(){
@@ -555,6 +630,10 @@ void ApplicationConfig::setLORA_MODE(LORA_MODE loraMode){
 	this->loraMode = loraMode;
 }
 
+void ApplicationConfig::setINA219_MODE(INA219_MODE ina219Mode){
+	this->ina219Mode = ina219Mode;
+}
+
 void ApplicationConfig::setStateTaskLight(TASK_STATE _stateTaskLight){
 	this->stateTaskLight = _stateTaskLight;
 }
@@ -589,6 +668,14 @@ void ApplicationConfig::setStateTaskProximity(TASK_STATE stateTaskProximity){
 
 void ApplicationConfig::setStateTaskGPS(TASK_STATE stateTaskGPS){
 	this->stateTaskGPS = stateTaskGPS;
+}
+
+void ApplicationConfig::setStateTaskSoilTemperature(TASK_STATE stateTaskSoilTemperature){
+	this->stateTaskSoilTemperature = stateTaskSoilTemperature;
+}
+
+void ApplicationConfig::setStateTaskSoilMoisture(TASK_STATE stateTaskSoilMoisture){
+	this->stateTaskSoilMoisture = stateTaskSoilMoisture;
 }
 
 void ApplicationConfig::setStateTaskLoRaMeasurement(TASK_STATE stateTaskLoRaMeasurement){

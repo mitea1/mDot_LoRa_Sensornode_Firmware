@@ -2,38 +2,49 @@
 #include "ApplicationConfig.h"
 #include "UARTTunnel.h"
 #include "Queue.h"
-#include "INA219.h"
+#include "SHT15.h"
 
 
 int main() {
 
-//	Application application;
-//	application.init(APPLICATION_MODE_3);
 
-	I2C_RT* i2c = new I2C_RT();
-	INA219* ina219 = new INA219(i2c);
+
+	Application application;
+	application.init(APPLICATION_MODE_3);
+
+//	I2C_RT* i2c = new I2C_RT();
+
 	RawSerial* debugSerial = new RawSerial(USBTX,USBRX);
 
-
-	ina219->setCalibration_16V_400mA();
+	debugSerial->printf("SHT TEST\n");
+//	SHTx::SHT15* sht15 = new SHTx::SHT15(I2C_SDA,I2C_SCL);
+//	sht15->reset();
 
 
     while (true) {
-    	debugSerial->baud(BAUD_USB);
-		debugSerial->format(8,SerialBase::None,1);
+//    	sht15->start();
+//    	sht15->sendByte(SHT11_TEMP);
+//    	sht15->resetInterface();
+//    	sht15->sendByte(SHT11_TEMP);
+//    	debugSerial->baud(BAUD_USB);
+//		debugSerial->format(8,SerialBase::None,1);
+//
+//    	sht15->update();
+//    	sht15->setScale(false);
+//    	float temperature = sht15->getTemperature();
+//    	float humidity = sht15->getHumidity();
 
-    	float shuntVoltage = ina219->getShuntVoltage_mV();
-    	float busVoltage = ina219->getBusVoltage_V();
-    	float current = ina219->getCurrent_mA();
-    	float power = ina219->getPower_mW();
+//
 
-    	debugSerial->printf("Shunt: %f mV \n", shuntVoltage);
-    	debugSerial->printf("Bus: %f V \n",busVoltage);
-    	debugSerial->printf("Current: %f mA \n",current);
-    	debugSerial->printf("Power: %f mW \n",power);
-    	debugSerial->printf("\n");
-    	osDelay(100);
+//    	debugSerial->printf("temperature: %f °C \n", temperature);
+//    	debugSerial->printf("humidity: %f % \n", humidity);
+//    	debugSerial->printf("\n");
+//    	osDelay(1000);
+//    	sleep();
     }
 
-    return 0;
+   return 0;
 }
+
+
+

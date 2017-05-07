@@ -7,7 +7,7 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
-#include <Queue.h>
+#include <queue>
 #include "BME280.h"
 #include "BME280TemperatureMessage.h"
 #include "BME280PressureMessage.h"
@@ -19,9 +19,12 @@
 #include "MPU9250GyroscopeMessage.h"
 #include "MPU9250TeslaMessage.h"
 #include "SI1143ProximityMessage.h"
+#include "SHT15SoilMoistureMessage.h"
+#include "SHT15SoilTemperatureMessage.h"
 #include "uBlox.h"
 #include "UBloxGPSMessage.h"
 #include "LoRaMeasuermentMessage.h"
+#include "PowerMeasurmentMessage.h"
 #include "CommandMessage.h"
 
 #define GPS_MESSAGE_LENGTH  36
@@ -42,6 +45,8 @@
 #define HUMIDITY_QUEUE_LENGHT				1
 #define PROXIMITY_QUEUE_LENGHT				1
 #define GPS_QUEUE_LENGHT					1
+#define SOIL_TEMPERATURE_QUEUE_LENGHT		1
+#define SOIL_MOISTURE_QUEUE_LENGHT		1
 #define LORA_MEASUREMENT_QUEUE_LENGHT		1
 #define POWER_MEASUREMENT_QUEUE_LENGHT		1
 #define COMMAND_QUEUE_LENGHT				1
@@ -62,6 +67,8 @@
 #define TESLA_TASK_DELAY_MS 				15000
 #define PROXIMITY_TASK_DELAY_MS 			15000
 #define GPS_TASK_DELAY_MS 					15000
+#define SOIL_TEMPERATURE_TASK_DELAY_MS 		15000
+#define SOIL_MOISTURE_TASK_DELAY_MS 		15000
 #define LORA_MEASUREMENT_TASK_DELAY_MS 		15000
 #define POWER_MEASUREMENT_TASK_DELAY_MS 	15000
 #define DATAHANLDER_TASK_DELAY_MS 			15000
@@ -120,6 +127,10 @@
 #define INA219_POWER_BINARY_MESSAGE_ID					0x4934
 #define SI1143_PROXIMITY_MESSAGE_ID						"P1"
 #define SI1143_PROXIMITY_BINARY_MESSAGE_ID				0x5131
+#define SHT15_SOIL_TEMPERATURE_MESSAGE_ID				"S1"
+#define SHT15_SOIL_TEMPERATURE_BINARY_MESSAGE_ID		0x5351
+#define SHT15_SOIL_MOISTURE_MESSAGE_ID					"S2"
+#define SHT15_SOIL_MOISTURE_BINARY_MESSAGE_ID			0x5352
 
 #define LORA_MEASURMENT_RSSI_MESSAGE_ID					"Z1"
 #define LORA_MEASURMENT_SNR_MESSAGE_ID					"Z2"
@@ -152,8 +163,10 @@ typedef struct QueueBundle{
 	Queue<MPU9250TeslaMessage,TESLA_QUEUE_LENGHT>* queueTesla;
 	Queue<SI1143ProximityMessage,PROXIMITY_QUEUE_LENGHT>* queueProximity;
 	Queue<UBloxGPSMessage,GPS_QUEUE_LENGHT>* queueGps;
+	Queue<SHT15SoilMoistureMessage,SOIL_MOISTURE_QUEUE_LENGHT>* queueSoilMoisture;
+	Queue<SHT15SoilTemperatureMessage,SOIL_TEMPERATURE_QUEUE_LENGHT>* queueSoilTemperature;
 	Queue<LoRaMeasurementMessage,LORA_MEASUREMENT_QUEUE_LENGHT>* queueLoRaMeasurments;
-	Queue<LoRaMeasurementMessage,POWER_MEASUREMENT_QUEUE_LENGHT>* queuePowerMeasurments;
+	Queue<PowerMeasurementMessage,POWER_MEASUREMENT_QUEUE_LENGHT>* queuePowerMeasurments;
 	Queue<CommandMessage,COMMAND_QUEUE_LENGHT>* queueCommands;
 };
 

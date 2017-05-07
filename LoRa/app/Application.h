@@ -15,6 +15,7 @@
 #include "SI1143.h"
 #include "uBlox.h"
 #include "INA219.h"
+#include "SHT15.h"
 #include "mDot.h"
 #include "LoRa.h"
 #include "TaskLight.h"
@@ -26,7 +27,9 @@
 #include "TaskTesla.h"
 #include "TaskProximity.h"
 #include "TaskGPS.h"
+#include "TaskSoilTemperature.h"
 #include "TaskLoRaMeasurement.h"
+#include "TaskPowerMeasurement.h"
 #include "TaskDatahandler.h"
 #include "TaskCommandHandler.h"
 #include "main.h"
@@ -61,8 +64,9 @@ private:
 	TaskTesla* taskTesla;
 	TaskProximity* taskProximity;
 	TaskGPS* taskGps;
+	TaskSoilTemperature* taskSoilTemperature;
 	TaskLoRaMeasurement* taskLoRaMeasurement;
-	TaskLoRaMeasurement* taskPowerMeasurement;
+	TaskPowerMeasurement* taskPowerMeasurement;
 	TaskDatahandler* taskDataHandler;
 	TaskCommandHandler* taskCommandHandler;
 
@@ -74,6 +78,7 @@ private:
 	rtos::Mutex mutexSi4103;
 	rtos::Mutex mutexUBlox;
 	rtos::Mutex mutexINA219;
+	rtos::Mutex mutexSHT15;
 	rtos::Mutex* mutexLoRa;
 
 	Queue<MAX44009Message,LIGHT_QUEUE_LENGHT> queueLight;
@@ -85,6 +90,8 @@ private:
 	Queue<MPU9250TeslaMessage,TESLA_QUEUE_LENGHT> queueTesla;
 	Queue<SI1143ProximityMessage,PROXIMITY_QUEUE_LENGHT> queueProximity;
 	Queue<UBloxGPSMessage,GPS_QUEUE_LENGHT> queueGps;
+	Queue<SHT15SoilTemperatureMessage,SOIL_TEMPERATURE_QUEUE_LENGHT> queueSoilTemperature;
+	Queue<SHT15SoilMoistureMessage,SOIL_MOISTURE_QUEUE_LENGHT> queueSoilMoisture;
 	Queue<LoRaMeasurementMessage,LORA_MEASUREMENT_QUEUE_LENGHT> queueLoRaMeasurements;
 	Queue<PowerMeasurementMessage,POWER_MEASUREMENT_QUEUE_LENGHT> queuePowerMeasurements;
 	Queue<CommandMessage,COMMAND_QUEUE_LENGHT> queueCommands;
@@ -97,6 +104,7 @@ private:
 	MPU9250* mpu9250;
 	SI1143* si1143;
 	INA219* ina219;
+	SHTx::SHT15* sht15;
 
 	ApplicationConfig* config;
 

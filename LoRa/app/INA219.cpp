@@ -15,6 +15,12 @@ INA219::~INA219() {
 	// TODO Auto-generated destructor stub
 }
 
+void INA219::init(INA219_MODE desiredMode){
+	config->build(desiredMode);
+	//Define more specific Settings in the future
+	setCalibration_16V_400mA();
+}
+
 void INA219::setI2C(I2C_RT* i2c){
 	this->i2c = i2c;
 }

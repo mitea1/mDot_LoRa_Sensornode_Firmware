@@ -5,7 +5,7 @@
  * @date 16.05.2016
  */
 
-#include <stdint-gcc.h>
+#include <stdint.h>
 #include <math.h>
 #include "I2C_RT.h"
 #include "MAX44009Config.h"

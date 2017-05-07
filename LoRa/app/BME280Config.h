@@ -5,7 +5,7 @@
  * @date 24.05.2016
  *
  */
-#include <stdint-gcc.h>
+#include <stdint.h>
 
 #ifndef APP_BME280CONFIG_H_
 #define APP_BME280CONFIG_H_

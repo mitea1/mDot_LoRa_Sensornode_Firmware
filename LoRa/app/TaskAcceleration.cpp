@@ -15,7 +15,10 @@ TaskAcceleration::TaskAcceleration(MPU9250* mpu9250,Mutex* mutexI2C, Queue<MPU92
 
 TaskAcceleration::TaskAcceleration(MPU9250* mpu9250,rtos::Mutex* mutexI2C,
 	rtos::Queue<MPU9250AccelerationMessage,ACCELERATION_QUEUE_LENGHT>* queue,
-	osPriority priority, uint32_t stackSize, unsigned char *stackPointer):TaskAcceleration(mpu9250,mutexI2C,queue) {
+	osPriority priority, uint32_t stackSize, unsigned char *stackPointer){
+	this->mpu9250 = mpu9250;
+	setMutex(mutexI2C);
+	setQueue(queue);
 	setPriority(priority);
 	setStackSize(stackSize);
 	setStackPointer(stackPointer);

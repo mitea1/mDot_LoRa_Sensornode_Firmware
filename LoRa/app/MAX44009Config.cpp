@@ -85,6 +85,10 @@ uint8_t MAX44009Config::getLowerThreshold(){
 	return this->lowerThreshold;
 }
 
+uint8_t MAX44009Config::getManualConfig(){
+	return this->manualConfig;
+}
+
 void MAX44009Config::setIntegrationTime(uint8_t integrationTime){
 	this->integrationTime = integrationTime;
 }

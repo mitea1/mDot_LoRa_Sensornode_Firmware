@@ -15,7 +15,10 @@ TaskProximity::TaskProximity(SI1143* si1143,Mutex* mutexI2C, Queue<SI1143Proximi
 
 TaskProximity::TaskProximity(SI1143* si1143,rtos::Mutex* mutexI2C,
 	rtos::Queue<SI1143ProximityMessage,PROXIMITY_QUEUE_LENGHT>* queue,
-	osPriority priority, uint32_t stackSize, unsigned char *stackPointer):TaskProximity(si1143,mutexI2C,queue) {
+	osPriority priority, uint32_t stackSize, unsigned char *stackPointer){
+	this->si1143 = si1143;
+	setMutex(mutexI2C);
+	setQueue(queue);
 	setPriority(priority);
 	setStackSize(stackSize);
 	setStackPointer(stackPointer);

@@ -74,6 +74,9 @@ void Application::stopAllRunningSensorTasks(){
 	if(taskGps->getState() == RUNNING){
 		taskGps->stop();
 	}
+	if(taskSoilTemperature->getState() == RUNNING){
+		taskSoilTemperature->stop();
+	}
 	if(taskLoRaMeasurement->getState() == RUNNING){
 		taskLoRaMeasurement->stop();
 	}
@@ -110,6 +113,7 @@ void Application::initSensors(){
 	mpu9250 = new MPU9250(i2c_rt);
 	si1143 = new SI1143(i2c_rt);
 	ina219 = new INA219(i2c_rt);
+	sht15 = new SHTx::SHT15(I2C_SDA,I2C_SCL);
 }
 
 void Application::initTasks(){
@@ -122,6 +126,7 @@ void Application::initTasks(){
 	taskTesla = new  TaskTesla(mpu9250,mutexI2C,&queueTesla,osPriorityNormal,DEFAULT_STACK_SIZE,NULL);
 	taskProximity = new  TaskProximity(si1143,mutexI2C,&queueProximity,osPriorityNormal,DEFAULT_STACK_SIZE,NULL);
 	taskGps = new  TaskGPS(gpsSensor,mutexUART1,&queueGps,osPriorityNormal,DEFAULT_STACK_SIZE,NULL);
+	taskSoilTemperature = new TaskSoilTemperature(sht15,mutexI2C,&queueSoilTemperature,osPriorityNormal,DEFAULT_STACK_SIZE,NULL);
 	taskLoRaMeasurement = new TaskLoRaMeasurement(lora,mutexLoRa,&queueLoRaMeasurements,osPriorityNormal,DEFAULT_STACK_SIZE,NULL);
 	taskPowerMeasurement = new TaskPowerMeasurement(ina219,mutexI2C,&queuePowerMeasurements,osPriorityNormal,DEFAULT_STACK_SIZE,NULL);
 	taskDataHandler = new  TaskDatahandler(lora,mutexLoRa,queueBundle,osPriorityNormal,DEFAULT_STACK_SIZE,NULL);
@@ -158,6 +163,12 @@ void Application::startRunnableSensorTasks(){
 	if(config->getStateTaskGPS() == RUNNING){
 		taskGps->start();
 	}
+	if(config->getStateTaskSoilTemperature()== RUNNING){
+		taskSoilTemperature->start();
+	}
+	if(config->getStateTaskSoilMoisture() == RUNNING){
+		//TODO
+	}
 	if(config->getStateTaskLoRaMeasurement() == RUNNING){
 		taskLoRaMeasurement->start();
 	}
@@ -173,8 +184,10 @@ void Application::configureSensors(){
 	max44009->init(config->getMAX44009_MODE());
 	bme280->init(config->getBME280_MODE());
 	mpu9250->init(config->getMPU9250_MODE());
-//	si1143->init(config->getSI1143_MODE());
+	si1143->init(config->getSI1143_MODE());
 	gpsSensor->init(config->getuBlox_MODE());
+	ina219->init(config->getINA219_MODE());
+	
 }
 
 void Application::configureLora(){
@@ -203,5 +216,8 @@ void Application::initQueueBundle(){
 	this->queueBundle.queueProximity = &queueProximity;
 	this->queueBundle.queueTemperature = &queueTemperature;
 	this->queueBundle.queueTesla = &queueTesla;
+	this->queueBundle.queueSoilTemperature = &queueSoilTemperature;
+	this->queueBundle.queueSoilMoisture = &queueSoilMoisture;
 	this->queueBundle.queuePowerMeasurments = &queuePowerMeasurements;
+
 }

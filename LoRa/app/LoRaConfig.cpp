@@ -178,7 +178,7 @@ void LoRaConfig::setAppEUI(){
 	this->appEUI = new std::vector<uint8_t>();
 
 	for(int i = 0; i < 8; i++){
-		this->appEUI->push_back(LORA_APP_EUI[i]);
+		this->appEUI->push_back(LORA_APP_EUI_MSB[i]);
 	}
 }
 
@@ -186,7 +186,7 @@ void LoRaConfig::setAppKey(){
 	this->appKey = new std::vector<uint8_t>();
 
 	for(int i = 0; i < 16; i++){
-		this->appKey->push_back(LORA_APP_KEY[i]);
+		this->appKey->push_back(LORA_APP_KEY_MSB[i]);
 	}
 }
 
@@ -194,7 +194,7 @@ void LoRaConfig::setDeviceEUI(){
 	this->deviceEUI = new std::vector<uint8_t>();
 
 	for(int i = 0; i < 8; i++){
-		this->deviceEUI->push_back(LORA_DEVICE_EUI[i]);
+		this->deviceEUI->push_back(LORA_DEVICE_EUI_MSB[i]);
 	}
 }
 

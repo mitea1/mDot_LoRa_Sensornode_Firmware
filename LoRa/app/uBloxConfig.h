@@ -8,7 +8,7 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "stdint-gcc.h"
+#include <stdint.h>
 #ifndef UBLOXCONFIG_H_
 #define UBLOXCONFIG_H_
 

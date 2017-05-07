@@ -1,5 +1,5 @@
 /*
- * TaskGPS.cpp
+P * TaskGPS.cpp
  *
  *  Created on: May 30, 2016
  *      Author: Adrian
@@ -15,7 +15,10 @@ TaskGPS::TaskGPS(uBlox* uBlox,Mutex* mutexUART, Queue<UBloxGPSMessage,GPS_QUEUE_
 
 TaskGPS::TaskGPS(uBlox* uBlox,rtos::Mutex* mutexUART,
 		rtos::Queue<UBloxGPSMessage,GPS_QUEUE_LENGHT>* queue,
-		osPriority priority, uint32_t stackSize, unsigned char *stackPointer):TaskGPS(uBlox,mutexUART,queue) {
+		osPriority priority, uint32_t stackSize, unsigned char *stackPointer){
+	this->mUBlox = uBlox;
+	setMutex(mutexUART);
+	setQueue(queue);
 	setPriority(priority);
 	setStackSize(stackSize);
 	setStackPointer(stackPointer);

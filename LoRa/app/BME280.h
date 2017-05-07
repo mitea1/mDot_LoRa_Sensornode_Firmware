@@ -4,7 +4,7 @@
  *  Created on: 18.05.2016
  *      Author: Adrian
  */
-#include <stdint-gcc.h>
+#include <stdint.h>
 #include "I2C_RT.h"
 #include "BME280Config.h"
 
@@ -74,8 +74,8 @@ public:
 
 
 	/**
-	 * @brief Gets the temperature in °C
-	 * @return temperature in °C
+	 * @brief Gets the temperature in ï¿½C
+	 * @return temperature in ï¿½C
 	 */
 	float getTemperatureFloat();
 

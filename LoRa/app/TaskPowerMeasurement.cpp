@@ -15,6 +15,9 @@ TaskPowerMeasurement::TaskPowerMeasurement(INA219* ina219,Mutex* mutex, Queue<Po
 
 TaskPowerMeasurement::TaskPowerMeasurement(INA219* ina219,Mutex* mutex, Queue<PowerMeasurementMessage,POWER_MEASUREMENT_QUEUE_LENGHT>* queue,
 		osPriority priority, uint32_t stackSize, unsigned char* stackPointer) {
+	this->ina219 = ina219;
+	setMutex(mutex);
+	setQueue(queue);
 	setPriority(priority);
 	setStackSize(stackSize);
 	setStackPointer(stackPointer);
@@ -26,17 +29,17 @@ TaskPowerMeasurement::~TaskPowerMeasurement(){
 }
 
 void TaskPowerMeasurement::measure(){
-	PowerMeasurementMessage powerMeasurmentMessage;
+	PowerMeasurementMessage* powerMeasurmentMessage = new PowerMeasurementMessage();
 
 	while(true){
 		mutexInterface->lock(osWaitForever);
-		powerMeasurmentMessage.setShuntVoltage(ina219->getShuntVoltage_mV());
-		powerMeasurmentMessage.setBusVoltage(ina219->getBusVoltage_V());
-		powerMeasurmentMessage.setCurrent(ina219->getCurrent_mA());
-		powerMeasurmentMessage.setPower(ina219->getPower_mW());
+		powerMeasurmentMessage->setShuntVoltage(ina219->getShuntVoltage_mV());
+		powerMeasurmentMessage->setBusVoltage(ina219->getBusVoltage_V());
+		powerMeasurmentMessage->setCurrent(ina219->getCurrent_mA());
+		powerMeasurmentMessage->setPower(ina219->getPower_mW());
 		mutexInterface->unlock();
 
-		queue->put(&powerMeasurmentMessage,osWaitForever);
+		queue->put(powerMeasurmentMessage,osWaitForever);
 		osDelay(POWER_MEASUREMENT_TASK_DELAY_MS);
 	}
 

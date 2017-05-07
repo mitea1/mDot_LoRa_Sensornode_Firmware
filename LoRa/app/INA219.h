@@ -9,6 +9,7 @@
 #define INA219_H_
 
 #include "I2C_RT.h"
+#include "INA219Config.h"
 
 #define INA219_ADDRESS                         (0x40 << 1)    // 1000000 (A0+A1=GND)
 #define INA219_READ                            (0x01)
@@ -61,40 +62,78 @@
 #define INA219_REG_CURRENT                     (0x04)
 #define INA219_REG_CALIBRATION                 (0x05)
 
-enum INA219_MODE{
-	INA219_MODE_0_OFF = 0,//!< LORA_MODE_0
-	INA219_MODE_1 = 1,//!< LORA_MODE_1
-	INA219_MODE_2 = 2,//!< LORA_MODE_2
-};
-
+/**
+ * @class INA210
+ * @brief Sensor for Power Measurment.
+ * Delivers functions to measure Voltag, Current and Power.
+ */
 class INA219 {
 public:
 	INA219(I2C_RT* i2c);
 	virtual ~INA219();
 
+	/**
+	 * @brief Initializes the INA219 according to the desired INA219_MODE
+	 * @param desiredMode the desired Mode depending on which the INA219
+	 * has to be configured
+	 */
+	void init(INA219_MODE desiredMode);
+
+
 	void setCalibration_32V_2A(void);
 	void setCalibration_32V_1A(void);
 	void setCalibration_16V_400mA(void);
 
+	/**
+	 * @brief Gets the Voltage in mV across the shunt
+	 */
 	float getShuntVoltage_mV();
+
+	/**
+	 * @brief Gets the Bus Voltage in V
+	 */
 	float getBusVoltage_V();
+
+	/**
+	 * @brief Gets the Current in mA
+	 */
 	float getCurrent_mA();
+
+	/**
+	 * @brief Gets the actual Power in mW
+	 */
 	float getPower_mW();
 
 private:
 
- uint16_t ina219_calValue;
- uint32_t ina219_currentDivider_mA;
- uint32_t ina219_powerDivider_mW;
+	 uint16_t ina219_calValue;
+	 uint32_t ina219_currentDivider_mA;
+	 uint32_t ina219_powerDivider_mW;
 
- I2C_RT* i2c;
+	 I2C_RT* i2c;
+	 INA219Config* config;
 
- void setI2C(I2C_RT* i2c);
+	 void setI2C(I2C_RT* i2c);
 
- int16_t getBusVoltage_raw(void);
- int16_t getShuntVoltage_raw(void);
- int16_t getCurrent_raw(void);
- int16_t getPower_raw(void);
+	 /**
+	  * @brief Gets the raw Bus Voltage
+	  */
+	 int16_t getBusVoltage_raw(void);
+
+	 /**
+	  * @brief Gets the raw Shunt Voltage
+	  */
+	 int16_t getShuntVoltage_raw(void);
+
+	 /**
+	  * @brief Gets the raw Current
+	  */
+	 int16_t getCurrent_raw(void);
+
+	 /**
+	  * @brief Gets the raw Power
+	  */
+	 int16_t getPower_raw(void);
 };
 
 #endif /* INA219_H_ */
